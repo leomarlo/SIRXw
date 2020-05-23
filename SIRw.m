@@ -1,0 +1,247 @@
+function result=SIRw(N,mu,beta,gamma,w,rho0,Model,tmax,Nt)
+%%%
+% takes:
+%       infectfract - fraction of initially infected individuals
+%       N - number of individuals
+%       L - number of edges
+%       K - number of runs
+%       r - recovery rate
+%       l - infection rate
+%       w - rewiring rate
+%       tmax - maximal  time
+%       Nt - number of time data points
+%       verbose - enabled if I want to see the timings
+%       
+% returns:
+%       rhoI - number of infected nodes as a function of time
+%       drhoI - standard deviation of rhoI
+%       rhoSI - number of SI links as a function of time
+%       drhoSI - standard deviation of rhoSI
+%       rhoSS - number of SS links as a function of time
+%       drhoSS - standard deviation of rhoSS
+%       times - table with times
+%%%
+
+    L=ceil(mu*N/2);
+   
+    A=ERG(N,L);
+    x=InitState(rho0,N);
+
+    NI=sum(x==1);
+    NS=N-NI;
+    NR=0;
+    NSI=(x*A)*(1-x)';
+    NSS=((1-x)*A)*(1-x)'/2;
+    NII=(x*A)*x'/2;
+    NSR=0;
+    NIR=0;
+    NRR=0;
+
+    rates=[gamma,beta,w];
+    h=[NI,NSI,NSI];
+
+
+   
+    times=0:tmax/Nt:tmax;
+    % initialise time
+    t=0;
+    % initial time index
+    i=1;
+    % halting flag is enabled when all nodes are healthy, i.e. susceptible or recovered.
+    halt=0;
+
+    % array of N ones.
+    N1s=ones(1,N);
+
+    NSs=zeros(1,Nt+1);
+    NIs=zeros(1,Nt+1);
+    NRs=zeros(1,Nt+1);
+    NSSs=zeros(1,Nt+1);
+    NSIs=zeros(1,Nt+1);
+    NSRs=zeros(1,Nt+1);
+    NIIs=zeros(1,Nt+1);
+    NIRs=zeros(1,Nt+1);
+    NRRs=zeros(1,Nt+1);
+
+    while t<tmax 
+        a=h.*rates;
+        as=sum(a);
+        r1=rand(); r2=rand();
+        cond1=r1*as>a(1);
+        cond2=r1*as>(a(1)+a(2));
+        mu = 1+cond1+cond2;
+        tau=log(1/r2)/as;
+        
+        if mu==1
+            % recovery
+            nI=find(x==1);
+    %         disp(?nI)
+            if isempty(nI)
+                tau=0;
+            else
+                tbr=randsample(nI,1); % to be recovered
+                x(tbr)=2;
+            end
+            % recalculate A,SS,SI,II,SR,IR,RR, I, S and R
+            NSS=((x==0)*A)*(x==0)'/2;
+            NSI=((x==0)*A)*(x==1)';
+            NSR=((x==0)*A)*(x==2)';
+            NII=((x==1)*A)*(x==1)'/2;
+            NIR=((x==1)*A)*(x==2)';
+            NRR=((x==2)*A)*(x==2)'/2;
+            NS=sum(x==0);
+            NI=sum(x==1);
+            NR=sum(x==2);
+
+        elseif mu==2
+            % infection
+            SI=(A & ((x==0)')*N1s & (N1s')*(x==1));
+            % indices of SI-links
+            [rSI,cSI]=find(SI);
+
+            x(randsample(rSI,1))=1;
+
+            % recalculate A,SS,SI,II,SR,IR,RR, I, S and R
+            NSS=((x==0)*A)*(x==0)'/2;
+            NSI=((x==0)*A)*(x==1)';
+            NSR=((x==0)*A)*(x==2)';
+            NII=((x==1)*A)*(x==1)'/2;
+            NIR=((x==1)*A)*(x==2)';
+            NRR=((x==2)*A)*(x==2)'/2;
+            NS=sum(x==0);
+            NI=sum(x==1);
+            NR=sum(x==2);
+
+
+        else
+            % rewiring
+
+            SI=(A & ((x==0)')*N1s & (N1s')*(x==1));
+            % indices of SI-links
+            [rSI,cSI]=find(SI);
+            rn=randi(length(rSI));
+
+            if Model==1
+                examples=find(A(rSI(rn),:)==0 & x==0 & (1:N)~=rSI(rn));
+                if isempty(examples)
+                    tau=0;
+                else
+                    re=randsample(examples,1);
+                    A(rSI(rn),cSI(rn))=0;
+                    A(cSI(rn),rSI(rn))=0;
+
+                    A(rSI(rn),re)=1;
+                    A(re,rSI(rn))=1;
+
+                    % recalculate A,SS,SI,II,SR,IR,RR, I, S and R
+                    NSS=((x==0)*A)*(x==0)'/2;
+                    NSI=((x==0)*A)*(x==1)';
+                    NSR=((x==0)*A)*(x==2)';
+                    NII=((x==1)*A)*(x==1)'/2;
+                    NIR=((x==1)*A)*(x==2)';
+                    NRR=((x==2)*A)*(x==2)'/2;
+                    NS=sum(x==0);
+                    NI=sum(x==1);
+                    NR=sum(x==2);
+                end
+            elseif Model==2
+                examples=find(A(rSI(rn),:)==0 & x~=1 & (1:N)~=rSI(rn));
+                if isempty(examples)
+                    % t shouldnt go forward
+                    tau=0;
+                else
+                    re=randsample(examples,1);
+                    A(rSI(rn),cSI(rn))=0;
+                    A(cSI(rn),rSI(rn))=0;
+
+                    A(rSI(rn),re)=1;
+                    A(re,rSI(rn))=1;
+
+                    % recalculate A,SS,SI,II,SR,IR,RR, I, S and R
+                    NSS=((x==0)*A)*(x==0)'/2;
+                    NSI=((x==0)*A)*(x==1)';
+                    NSR=((x==0)*A)*(x==2)';
+                    NII=((x==1)*A)*(x==1)'/2;
+                    NIR=((x==1)*A)*(x==2)';
+                    NRR=((x==2)*A)*(x==2)'/2;
+                    NS=sum(x==0);
+                    NI=sum(x==1);
+                    NR=sum(x==2);
+
+                end
+
+            else
+                warning('Model does not exist')
+            end
+        end
+
+
+        % update h
+        h=[NI,NSI,NSI];
+        % update time
+        t=t+tau;
+
+        ind=find(times<=t,1,'last');
+
+        % if ind>i
+        if ind>=i+1
+            for k=[i+1:ind]
+                % update the observables 
+                % recalculate A,SS,SI,II,SR,IR,RR, I, S and R
+
+                NSs(k)=NS;
+                NIs(k)=NI;
+                NRs(k)=NR;
+                NSSs(k)=NSS;
+                NSIs(k)=NSI;
+                NSRs(k)=NSR;
+                NIIs(k)=NII;
+                NIRs(k)=NIR;
+                NRRs(k)=NRR;
+            end    
+        end
+
+        %update the new index.
+        i=ind;  
+        if NI==0
+            halt=1;
+            for k=[i+1:Nt+1]
+                NSs(k)=NS;
+                NIs(k)=NI;
+                NRs(k)=NR;
+                NSSs(k)=NSS;
+                NSIs(k)=NSI;
+                NSRs(k)=NSR;
+                NIIs(k)=NII;
+                NIRs(k)=NIR;
+                NRRs(k)=NRR;
+            end
+            break
+        end
+
+    end
+
+
+    result.NSs=NSs;
+    result.NIs=NIs;
+    result.NRs=NRs;
+    result.NSSs=NSSs;
+    result.NSIs=NSIs;
+    result.NSRs=NSRs;
+    result.NIIs=NIIs;
+    result.NIRs=NIRs;
+    result.NRRs=NRRs;
+    result.N=N;
+    result.L=L;
+    result.beta=beta;
+    result.gamma=gamma;
+    result.w=w;
+    result.mu=mu;
+    result.Model=Model;
+    result.tmax=tmax;
+    result.Nt=Nt;
+    result.halt=halt;
+    result.times=times;
+    result.rates=rates;
+    
+end

@@ -1,0 +1,597 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[normalem]{ulem}
+
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{color}
+\usepackage[normalem]{ulem}
+% \usepackage{subcaption} 
+\usepackage{hyperref}
+
+\usepackage{amsfonts,epsfig,amsmath,amsthm,amssymb,graphics,verbatim}
+\usepackage[ margin=1in]{geometry}
+
+\newcommand{\ep}{\epsilon}
+\newcommand{\SI}{SI}
+\newcommand{\erf}{\mbox{erf}}
+\newcommand{\glog}{\Lambda}
+%\newcommand{\sv}{{\cal }}
+\newcommand{\sv}{\psi}
+\newcommand{\norm}[1]{{\left\| #1 \right\|}}
+
+\usepackage{color}
+\newcommand{\rd}{\color{red}} %  for red comments, use with {\re ... }
+\newcommand{\bl}{\color{blue}} %  for red comments, use with {\re ... }
+
+% equation abbreviations
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\beann}{\begin{eqnarray*}}
+\newcommand{\eeann}{\end{eqnarray*}}
+\newcommand{\benn}{\begin{equation*}}
+\newcommand{\eenn}{\end{equation*}}
+
+\def\R{\mathbb{R}}
+\def\figheight{4cm}
+
+
+%opening
+\title{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Moment Closure Approximation}
+
+Let's consider two models. In both models, infected transmit their disease to a neighbouring susceptible at a rate $\beta$. in both models infected individuals recover at a rate $\gamma$. In both models a link from a susceptible to an infected individual is rewired at a rate $w$. 
+However:
+\begin{enumerate}
+ \item In the first model, susceptibles rewire towards other susceptibles.
+ \item In the second model, susceptibles rewire towards other susceptibles or recovered individuals.
+\end{enumerate}
+
+\subsection{Model 1}
+
+So we have the following equations:
+
+\begin{align}
+ \frac{d}{dt} [S]
+ &=
+ -\beta [SI]
+ \\
+ \frac{d}{dt} [I]
+ &=
+ \beta [SI] - \gamma [I]
+ \\
+ \frac{d}{dt} [R]
+ &=
+\gamma [I]
+ \\
+ \frac{d}{dt} [SI]
+ &=
+ -(\beta+\gamma+w)[SI] + \beta[SSI] -\beta[ISI] 
+ \\
+ \frac{d}{dt} [SS]
+ &=
+- \beta [SSI] + w [SI]
+ \end{align}
+ 
+ Now we can invoke the moment closure approximations: $[SSI][S]\approx 2[SS][SI]$ and $[ISI][S]\approx [SI][SI]$:
+ 
+ 
+ \begin{align}
+ \frac{d}{dt} [S]
+ &=
+ -\beta [SI]
+ \\
+ \frac{d}{dt} [I]
+ &=
+ \beta [SI] - \gamma [I]
+ \\
+ \frac{d}{dt} [R]
+ &=
+\gamma [I]
+ \\
+ \frac{d}{dt} [SI]
+ &\approx
+ -(\beta+\gamma+w)[SI] + 2 \beta [SS][SI]/[S]] -\beta [SI][SI]/[S] 
+ \\
+ \frac{d}{dt} [SS]
+ &\approx
+- 2 \beta [SS][SI]/[S] + w [SI]
+ \end{align}
+ 
+ in terms of densities $\rho_I,\rho_R, \rho_{SI}$ and $\rho_{SS}$ we obtain:
+ 
+ \begin{align}
+  \dot \rho_I 
+  &=
+   \beta \rho_{SI} - \gamma \rho_I \label{eq:rhoI}
+   \\
+     \dot \rho_R 
+  &=
+    \gamma \rho_I\label{eq:rhoR}
+\\
+    \dot \rho_{SI}
+&\approx
+-(\beta+\gamma+w) \rho_{SI} +\beta \rho_{SI}\frac{ 2 \rho_{SS}-\rho_{SI}  }{1-\rho_I-\rho_R}\label{eq:rhoSI}
+\\
+    \dot \rho_{SS}
+&\approx
+ -2\beta \frac{\rho_{SI} \rho_{SS}}{1-\rho_I-\rho_R} +w\rho_{SI}\label{eq:rhoSS}
+ \end{align}
+where we have dropped one equation due to the assumed population conservation.
+
+\subsection{Model 2}
+
+In this model we have an effective rewiring rate. Susceptible nodes rewire at a rate $w$ and the population of $[SI]$ links reduces through the rewiring at a rate $w[SI]$, however the population of $[SS]$ only gets a fraction of those rewired links. How many on average?
+
+\sout{On average an $[SI]$ pair has $[SSI]/[SI]$ neighbours of type $S$ and $[RSI]/[SI]$ neighbours of type $R$. Using the moment closure approximation these are roughly $2[SS]/[S]$ susceptible neighbours and $[SI]/[S]$ infected neighbours. A quick common sense argument confirms that there are a total of $2[SS]$ stubs on susceptibles that connect to another susceptible stub, whereas there are $[SI]$ stubs on susceptibles that end on infected stubs. Thus the chance that a randomly chosen stub is susceptible is $2[SS]/(2[SS]+[SI])$ and the chance that a randomly chosen stub is infected is $[SI]/(2[SS]+[SI])$.} BUT actually we don't care about the relative fraction of neighbouring stubs, we only care about the relative fraction of $[S]$ versus $[R]$ species floating around, because the susceptible won't choose to link to an existing neighbour (precisely because there is already a link there).
+
+So we obtain the following system of equations
+
+
+\begin{align}
+ \frac{d}{dt} [S]
+ &=
+ -\beta [SI]
+ \\
+ \frac{d}{dt} [I]
+ &=
+ \beta [SI] - \gamma [I]
+ \\
+ \frac{d}{dt} [R]
+ &=
+\gamma [I]
+ \\
+ \frac{d}{dt} [SI]
+ &=
+ -(\beta+\gamma+w)[SI] + \beta[SSI] -\beta[ISI] 
+ \\
+ \frac{d}{dt} [SS]
+ &=
+- \beta [SSI] + w*\frac{[S]}{[R]+[S]} [SI]
+ \end{align}
+ 
+ Eventually, after moment closure approximation this yields the following system for the densities:
+ 
+  \begin{align}
+  \dot \rho_I 
+  &=
+   \beta \rho_{SI} - \gamma \rho_I \label{eq:rhoI}
+   \\
+     \dot \rho_R 
+  &=
+    \gamma \rho_I\label{eq:rhoR}
+\\
+    \dot \rho_{SI}
+&\approx
+-(\beta+\gamma+w) \rho_{SI} +\beta \rho_{SI}\frac{ 2 \rho_{SS}-\rho_{SI}  }{1-\rho_I-\rho_R}\label{eq:rhoSI}
+\\
+    \dot \rho_{SS}
+&\approx
+-2\beta \frac{\rho_{SI} \rho_{SS}}{1-\rho_I-\rho_R}
++w\left[\frac{1-\rho_I-\rho_R}{1-\rho_{I}}\right]\rho_{SI}
+\label{eq:rhoSS}
+ \end{align}
+
+
+ \section{Model 3 (include quarantine \#1)}
+ 
+ Lets include quarantine. There are many ways. 
+ 
+ First we consider that links are removed at a rate $\kappa_0$ for $[SS]$ links and at a rate of $\kappa_0+\kappa$ for $[SI]$ links. Once quarantined they can never enter again into any other compartment. So for the sake of analysis the final state of the epidemi is $\lim_{t\to\infty}[\rho_R(t)+\rho_{X}(t)]$. Then we would have the following model:
+ 
+ 
+\begin{align}
+ \frac{d}{dt} [S]
+ &=
+ -\beta [SI]
+ \\
+ \frac{d}{dt} [I]
+ &=
+ \beta [SI] - \gamma [I]
+ \\
+ \frac{d}{dt} [R]
+ &=
+\gamma [I]
+ \\
+ \frac{d}{dt} [SI]
+ &=
+ -(\beta+\gamma+w)[SI] + \beta[SSI] -\beta[ISI] 
+ - \kappa_0 [SI] -\kappa [SI]
+ \\
+ \frac{d}{dt} [SS]
+ &=
+- \beta [SSI] + w*\frac{[S]}{[R]+[S]} [SI]
+- \kappa_0 [SS]
+ \end{align}
+ 
+ 
+ \section{Model 4 (include quarantine \#2)}
+
+ Then imagine instead that not the links are removed, but that there is a state $[X]$ which represents the quarantined state. In that state disease cannot be transmitted along the link. So all those links attached to that node are removed from the pool of transmittable links. Effectively this behaves like link-removal.
+ 
+\begin{align}
+ \frac{d}{dt} [S]
+ &=
+ -\beta [SI] - \kappa_0[S]
+ \\
+ \frac{d}{dt} [I]
+ &=
+ \beta [SI] - \gamma [I] - (\kappa_0+\kappa)[I]
+ \\
+ \frac{d}{dt} [R]
+ &=
+\gamma [I]
+ \\
+  \frac{d}{dt} [X]
+ &=
+\kappa_0 [S] + (\kappa_0+\kappa)[I]
+ \\
+ \frac{d}{dt} [SI]
+ &=
+ -(\beta+\gamma+w)[SI] + \beta[SSI] -\beta[ISI] -2\kappa_0 [SI] - \kappa [SI] 
+ \\
+ \frac{d}{dt} [SS]
+ &=
+- \beta [SSI] + w*\frac{[S]}{[R]+[S]} [SI] -2\kappa_0 [SS]
+ \end{align}
+ 
+ This latter model has the following representation:
+ 
+  \begin{align}
+  \dot \rho_S
+  &= 
+  -\beta \rho_{SI} - \kappa_0\rho_S\\
+\dot \rho_I 
+  &=
+   \beta \rho_{SI} - \gamma \rho_I  - (\kappa_0+\kappa) \rho_I\label{eq:rhoI4}
+   \\
+     \dot \rho_R 
+  &=
+    \gamma \rho_I\label{eq:rhoR4}
+\\
+    \dot \rho_{SI}
+&\approx
+-(\beta+\gamma+w +2\kappa_0 +\kappa) \rho_{SI} +\beta \rho_{SI}\frac{ 2 \rho_{SS}-\rho_{SI}  }{\rho_S}\label{eq:rhoSI4}
+\\
+    \dot \rho_{SS}
+&\approx
+-2\beta \frac{\rho_{SI} \rho_{SS}}{\rho_S}
++w\left[\frac{\rho_S}{\rho_S+\rho_R}\right]\rho_{SI} - 2\kappa_0\rho_{SS}
+\label{eq:rhoSS4}
+ \end{align}
+
+\section{Model 5}
+
+Now let's consider, as before, that there is a quarantined compartment, but quarantine doesnt last for ever. We still allow for both, the susceptible population as well as the infected population to be quarantined at a rate $\kappa_0$ and $\kappa_0+\kappa$ respectively. If they are healthy quarantinees, then they'd go back into the healthy compartment. If they are infected, they go into the recovered compartment. So we need a distinction into $[X_S]$ and $[X_I]$ compartments.
+
+What are the rates at which these departments deplete? Let's take a look at the word quarantine. It derives from 14 days. A disease has a typical incubation time and recovery time. These usually factor into the duration of a quarantine. The 14 days are related to the mean plus one or two standard deviations for the time it takes an individual not be infectious anymore. Here we deal with exponential distributions. The incubation period is considered 0, so the mean time for recovery is $1/\gamma$. Since the distribution is exponential, we have a standard devation of this recovery time of $1/\gamma$, i.e. the same. So $r$ standard deviations after the mean would be $T=1/\gamma +r (1/\gamma)= (1+r)/\gamma$.
+
+\begin{equation}
+ I\xrightarrow[\kappa_0+\kappa]{}X_I 
+ \xrightarrow[\gamma/(1+r)]{} R\\
+\end{equation}
+
+and the same for the susceptibles:
+
+\begin{equation}
+ S\xrightarrow[\kappa_0]{}X_S 
+ \xrightarrow[\gamma/(1+r)]{} S\\
+\end{equation}
+
+except that they return to the susceptible compartment. This way the time $\widetilde T$ of returning from quarantine is related to the recovery time $T$ via the following relation:
+\begin{equation}
+\mathbb E[\widetilde T]= \mathbb E[T] +r \cdot \;\sigma(T)
+\end{equation}
+And for $r=1$ we would be one standard deviation away from the mean. The left handside reads $\mathbb E[\widetilde T]=\frac{1}{\gamma/(1+r)}$ and the right handside reads $\mathbb E[T] +r \cdot \;\sigma(T) = 1/\gamma + r\cdot 1/\gamma$.
+
+So now the equations would read:
+\begin{align}
+ \frac{d}{dt} [S]
+ =&
+ -\beta [SI] - \kappa_0[S] +\frac{\gamma}{1+r}[X_S]
+ \\
+ \frac{d}{dt} [I]
+ =&
+ \beta [SI] - \gamma [I] - (\kappa_0+\kappa)[I] 
+ \\
+ \frac{d}{dt} [R]
+ =&
+\gamma [I] +\frac{\gamma}{1+r}[X_I]
+ \\
+ \frac{d}{dt} [X_S]
+ =&
+\kappa_0 [S] - \frac{\gamma}{1+r}[X_S]
+ \\
+ \frac{d}{dt} [X_I]
+ =&
+(\kappa_0 +\kappa) [I] - \frac{\gamma}{1+r}[X_I]
+ \\
+ \frac{d}{dt} [SI]
+ =&
+ -(\beta+\gamma+w)[SI] + \beta[SSI] -\beta[ISI] -2\kappa_0 [SI] - \kappa [SI] + \frac{\gamma}{1+r} [X_{S}I] 
+ \\
+ \frac{d}{dt} [SS]
+ =&
+- \beta [SSI] + w*\frac{[S]}{[R]+[S]} [SI] -2\kappa_0 [SS] + \frac{\gamma}{1+r} [X_{S}S]  \\
+ \frac{d}{dt} [X_{S}S]
+ =&
+ -\frac{\gamma}{1+r} [X_{S}S] + 2\kappa_0[SS]
+ -\beta [X_{S}SI]
+ \\
+ \frac{d}{dt} [X_{S}I]
+ =&
+ -\frac{\gamma}{1+r} [X_{S}I] - \gamma [X_{S}I] -(\kappa_0+\kappa)[X_{S}I] + \kappa_0 [SI]
+ \end{align}
+ 
+ So putting these into 8 independent ODEs is a bit more involved:
+ 
+ \begin{align}
+  \dot{\rho_S}=&-\beta \rho_{SI}-\kappa_0\rho_S+ \frac{\gamma}{1+r} \rho_{X_s}\\
+  \dot{\rho_{R}}=&+
+  \gamma(1-\rho_{R}-\rho_{S}-\rho_{X_s}-\rho_{X_i}) +\frac{\gamma}{1+r} \rho_{X_i}\\
+  \dot {\rho_{X_s}}=&+
+  \kappa_0\rho_S - \frac{\gamma}{1+r} \rho_{X_s}\\
+  \dot {\rho_{X_i}}= &
+  +(\kappa_0+\kappa)(1-\rho_{S}-\rho_{R}-\rho_{X_s}-\rho_{X_i}) - \frac{\gamma}{1+r} \rho_{X_i}\\
+  &\nonumber\\
+  \dot{\rho_{SI}}=&
+  -(\beta+\gamma+w+2\kappa_0+\kappa)\rho_{SI}+\beta\rho_{SI}\frac{2\rho_{SS}-\rho_{SI}}{\rho_S}+ \frac{\gamma}{1+r} \rho_{IX_s}\\
+  \dot{\rho_{SS}}=& - 2\beta\frac{\rho_{SI}\rho_{SS}}{\rho_{S}}+w\frac{\rho_S}{\rho_S+\rho_{R}}\rho_{SI} - 2\kappa_0\rho_{SS} + \frac{\gamma}{1+r}\rho_{SX_{s}}\\
+  \dot{\rho_{SX_{s}}}=&
+  -\frac{\gamma}{1+r}\rho_{SX_s}+2\kappa_0\rho_{SS}-\beta\rho_{SX_{s}}\frac{\rho_{SI}}{\rho_S}\\
+  \dot{\rho_{IX_{s}}}=&
+  -\frac{\gamma}{1+r}\rho_{IX_{s}}-\gamma\rho_{IX_{s}}-(\kappa_0+\kappa)\rho_{IX_{s}}+\kappa\rho_{SI}
+ \end{align}
+
+ 
+ \section{Model 5}
+
+Now let's consider, as before, that there is a quarantined compartment, but quarantine doesnt last for ever. We still allow for both, the susceptible population as well as the infected population to be quarantined at a rate $\kappa_0$ and $\kappa_0+\kappa$ respectively. If they are healthy quarantinees, then they'd go back into the healthy compartment. If they are infected, they go into the recovered compartment, respectively at a rate $\delta$
+
+So now the equations would read:
+\begin{align}
+ \frac{d}{dt} [S]
+ =&
+ -\beta [SI] - \kappa_0[S] +\delta[X_S]
+ \\
+ \frac{d}{dt} [I]
+ =&
+ \beta [SI] - \gamma [I] - (\kappa_0+\kappa)[I] 
+ \\
+ \frac{d}{dt} [R]
+ =&
+\gamma [I] +\delta[X_I]
+ \\
+ \frac{d}{dt} [X_S]
+ =&
+\kappa_0 [S] - \delta[X_S]
+ \\
+ \frac{d}{dt} [X_I]
+ =&
+(\kappa_0 +\kappa) [I] - \delta[X_I]
+ \\
+ \frac{d}{dt} [SI]
+ =&
+ -(\beta+\gamma+w)[SI] + \beta[SSI] -\beta[ISI] -2\kappa_0 [SI] - \kappa [SI] + \delta [X_{S}I] 
+ \\
+ \frac{d}{dt} [SS]
+ =&
+- \beta [SSI] + w*\frac{[S]}{[R]+[S]} [SI] -2\kappa_0 [SS] + \delta[X_{S}S]  \\
+ \frac{d}{dt} [X_{S}S]
+ =&
+ -\delta [X_{S}S] + 2\kappa_0[SS]
+ -\beta [X_{S}SI]
+ \\
+ \frac{d}{dt} [X_{S}I]
+ =&
+ -\delta[X_{S}I] - \gamma [X_{S}I] -(\kappa_0+\kappa)[X_{S}I] + \kappa_0 [SI]
+ \end{align}
+ 
+ So putting these into 8 independent ODEs is a bit more involved:
+ 
+ \begin{align}
+  \dot{\rho_S}=&-\beta \rho_{SI}-\kappa_0\rho_S+ \delta \rho_{X_s}\\
+  \dot{\rho_{R}}=&+
+  \gamma(1-\rho_{R}-\rho_{S}-\rho_{X_s}-\rho_{X_i}) +\delta \rho_{X_i}\\
+  \dot {\rho_{X_s}}=&+
+  \kappa_0\rho_S - \delta \rho_{X_s}\\
+  \dot {\rho_{X_i}}= &
+  +(\kappa_0+\kappa)(1-\rho_{S}-\rho_{R}-\rho_{X_s}-\rho_{X_i}) - \delta \rho_{X_i}\\
+  &\nonumber\\
+  \dot{\rho_{SI}}=&
+  -(\beta+\gamma+w+2\kappa_0+\kappa)\rho_{SI}+\beta\rho_{SI}\frac{2\rho_{SS}-\rho_{SI}}{\rho_S}+ \delta \rho_{IX_s}\\
+  \dot{\rho_{SS}}=& - 2\beta\frac{\rho_{SI}\rho_{SS}}{\rho_{S}}+w\frac{\rho_S}{\rho_S+\rho_{R}}\rho_{SI} - 2\kappa_0\rho_{SS} + \delta\rho_{SX_{s}}\\
+  \dot{\rho_{SX_{s}}}=&
+  -\delta\rho_{SX_s}+2\kappa_0\rho_{SS}-\beta\rho_{SX_{s}}\frac{\rho_{SI}}{\rho_S}\\
+  \dot{\rho_{IX_{s}}}=&
+  -\delta\rho_{IX_{s}}-\gamma\rho_{IX_{s}}-(\kappa_0+\kappa)\rho_{IX_{s}}+\kappa\rho_{SI}
+ \end{align}
+ 
+ \section{Model 6}
+
+So now the equations would read:
+\begin{align}
+ \frac{d}{dt} [S]
+ =&
+ -\beta [SI] 
+ \\
+ \frac{d}{dt} [I]
+ =&
+ \beta [SI] - (\gamma + \kappa)[I] 
+ \\
+ \frac{d}{dt} [R]
+ =&
+\gamma [I] +\delta[X_I]
+ \\
+ \frac{d}{dt} [X_I]
+ =&
+\kappa[I] - \delta[X_I]
+ \\
+ \frac{d}{dt} [SI]
+ =&
+ -(\beta+\gamma+w)[SI] + \beta[SSI] -\beta[ISI] - \kappa [SI]
+ \\
+ \frac{d}{dt} [SS]
+ =&
+- \beta [SSI] + w*\frac{[S]}{[R]+[S]} [SI]
+ \end{align}
+ 
+ So putting these into 5 independent ODEs 
+ 
+ 
+  \begin{align}
+  \dot{\rho_S}=&-\beta \rho_{SI}\\ 
+  \dot {\rho_{I}}= &
+  -(\kappa+\gamma)\rho_{I} +\beta\rho_{SI}\\
+  \dot{\rho_{R}}=&+
+  \gamma\rho_I +\delta (1-\rho_{S}-\rho_{I}-\rho_{R})\\
+  \dot{\rho_{SI}}=&
+  -(\beta+\gamma+w+\kappa)\rho_{SI}+\beta\rho_{SI}\frac{2\rho_{SS}-\rho_{SI}}{\rho_S}\\
+  \dot{\rho_{SS}}=& - 2\beta\frac{\rho_{SI}\rho_{SS}}{\rho_{S}}+w\frac{\rho_S}{\rho_S+\rho_{R}}\rho_{SI}
+ \end{align}
+ 
+\section{Model 7}
+
+
+So now the equations would read:
+\begin{align}
+ \frac{d}{dt} [S]
+ =&
+ -\beta [SI] 
+ \\
+ \frac{d}{dt} [I]
+ =&
+ \beta [SI] - (\gamma + \kappa)[I] 
+ \\
+ \frac{d}{dt} [R]
+ =&
+\gamma [I] +\delta[X_I]
+ \\
+ \frac{d}{dt} [X_I]
+ =&
+\kappa[I] - \delta[X_I]
+ \\
+ \frac{d}{dt} [SI]
+ =&
+ -(\beta+\gamma+w)[SI] + \beta[SSI] -\beta[ISI] - \kappa [SI]
+ \\
+ \frac{d}{dt} [SS]
+ =&
+- \beta [SSI] + w*\frac{[S]}{[R]+[S]} [SI]
+ \end{align}
+ 
+ So putting these into 5 independent ODEs 
+ 
+ 
+  \begin{align}
+  \dot{\rho_S}=&-\beta \rho_{SI}\\ 
+  \dot {\rho_{I}}= &
+  -(\kappa+\gamma)\rho_{I} +\beta\rho_{SI}\\
+  \dot{\rho_{R}}=&+
+  \gamma\rho_I +\delta (1-\rho_{S}-\rho_{I}-\rho_{R})\\
+  \dot{\rho_{SI}}=&
+  -(\beta+\gamma+w+\kappa)\rho_{SI}+\beta\rho_{SI}\frac{2\rho_{SS}-\rho_{SI}}{\rho_S}\\
+  \dot{\rho_{SS}}=& - 2\beta\frac{\rho_{SI}\rho_{SS}}{\rho_{S}}+w\frac{\rho_S}{\rho_S+\rho_{R}}\rho_{SI}
+ \end{align}
+ 
+\section{Equilibrium Solutions}
+\subsection{Naive}
+
+We know already (from experience ;) ) that there is only one collection of stationary points, namely $\rho_I=\rho_{SI}=0$. This also pops out of the condition that $\dot \rho_R=\dot\rho_{SI}=0$.
+
+Setting \eqref{eq:rhoSI} and \eqref{eq:rhoSS} to zero and solving them for $\rho_R$ yields:
+
+\begin{align}
+ \rho_R &= 1- \rho_I - \beta\left[\frac{2\rho_{SS}-\rho_{SI}}{\beta+\gamma+w}\right]\\
+ \rho_{SS}&= w\left[\frac{1-\rho_I-\rho_R}{2\beta}\right]
+\end{align}
+
+This has the rather boring solution of $\rho_R=1$.
+
+\subsection{Transcendental Equation}
+People tend to solve $dR/dI$ or $dR/dS$. and take $t\to\infty$. The key quantity is $r_\infty$.
+This is usually a Transcendental equation. 
+Check 
+\href{https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology}{wikipedia},
+\href{https://arxiv.org/pdf/1403.2160.pdf}{arxiv} or
+\href{https://math.unm.edu/~sulsky/mathcamp/SIR.pdf}{a lecture script}.
+
+\section{Stability}
+
+Again, we can consider the two models. For Model 1 we have:
+
+\subsection{Model 1}
+
+The Jacobian at $\rho_I,\rho_R,\rho_{SI}$ and $\rho_{SS}$ is given by:
+\begin{equation}
+\mathcal J=
+\left[
+\begin{array}{cccc}
+ -\gamma & 0 & \beta & 0 \\
+ \gamma & 0 & 0 & 0 \\
+ 
+\frac{\rho_{SI} (-\rho_{SI} + 2 \rho_{SS}) \beta}{(1 - \rho_I - 
+  \rho_R)^2} &
+  \frac{\rho_{SI} (-\rho_{SI} + 2 \rho_{SS}) \beta}{(1 - \rho_I - \rho_R)^2} & 
+  -\beta - \frac{ \rho_{SI} \beta}{1 - \rho_I - \rho_R} + \frac{(-\rho_{SI} + 2 \rho_{SS}) \beta}{
+ 1 - \rho_I - \rho_R} - \gamma - w &
+ \frac{2 \rho_{SI} \beta}{1 - \rho_I - \rho_R}
+\\
+-\frac{2 \rho_{SI} \rho_{SS} \beta}{(1 - \rho_I - \rho_R)^2} &
+-\frac{ 2 \rho_{SI} \rho_{SS} \beta}{(1 - \rho_I - \rho_R)^2} &
+-\frac{2 \rho_{SS} \beta}{ 1 - \rho_I - \rho_R} + w &
+-\frac{2 \rho_{SI} \beta}{1 - \rho_I - \rho_R}
+\end{array}\right]\nonumber
+\end{equation}
+
+Let's consider the Jacobian at $\rho_I=\rho_{SI}=\rho_R=0$ and $\rho_{SS}=\mu/2$.
+
+\begin{equation}
+\mathcal J\big|_{0,0,0,\mu/2}=
+\left[
+\begin{array}{cccc}
+ -\gamma & 0 & \beta & 0 \\
+ \gamma & 0 & 0 & 0 \\
+ 0 & 0 & -\beta-\gamma+\beta\mu -w &0 \\
+ 0 & 0 & -\beta\mu+w & 0
+\end{array}\right]
+\end{equation}
+
+Btw everything is in the mathematica notebook. see attachment.
+
+We can now look at a small perturbation 
+\begin{align}
+\dot \epsilon_I &= -\gamma \epsilon_I +\beta \epsilon_{SI}\\
+\dot \epsilon_R &= \gamma \epsilon_I \\
+\dot \epsilon_{SI} &= [\beta\mu - (w+\beta+\gamma)]\epsilon_{SI}\\
+\dot \epsilon_{SS} &= [-\beta\mu+w]\epsilon_{SS}
+\end{align}
+
+We see that $\epsilon_{SI}$ decays \textit{iff}
+\begin{equation}
+ \beta<\beta_c=\frac{w+\gamma}{\mu+1}
+\end{equation}
+
+
+\subsection{Model 2}
+
+
+% $\epsilon=(\epsilon_I,0,\epsilon_{SI},-\epsilon_{SI})$.
+\end{document}

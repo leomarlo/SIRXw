@@ -1,0 +1,499 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16893,        490]
+NotebookOptionsPosition[     16104,        459]
+NotebookOutlinePosition[     16437,        474]
+CellTagsIndexPosition[     16394,        471]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["SIRXw (infinite quarantine a la Brockmann 2020)", "Subsubsection",
+ CellChangeTimes->{{3.798701853280361*^9, 3.798701895015439*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"fRS", "[", 
+     RowBox[{
+     "RS_", ",", "RI_", ",", "RR_", ",", "RSI_", ",", "RSS_", ",", "\[Beta]_",
+       ",", "\[Gamma]_", ",", "w_", ",", "\[Kappa]o_", ",", "\[Kappa]_"}], 
+     "]"}], ":=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "\[Beta]"}], "*", "RSI"}], " ", "-", " ", 
+     RowBox[{"\[Kappa]o", " ", "*", " ", "RS"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"fRI", "[", 
+     RowBox[{
+     "RS_", ",", "RI_", ",", "RR_", ",", "RSI_", ",", "RSS_", ",", "\[Beta]_",
+       ",", "\[Gamma]_", ",", "w_", ",", "\[Kappa]o_", ",", "\[Kappa]_"}], 
+     "]"}], ":=", " ", 
+    RowBox[{
+     RowBox[{"\[Beta]", " ", "*", "RSI"}], " ", "-", "  ", 
+     RowBox[{"\[Gamma]", " ", "*", " ", "RI"}], "  ", "-", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"\[Kappa]o", "+", "\[Kappa]"}], ")"}], "*", "RI"}]}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"fRR", "[", 
+     RowBox[{
+     "RS_", ",", "RI_", ",", "RR_", ",", "RSI_", ",", "RSS_", ",", "\[Beta]_",
+       ",", "\[Gamma]_", ",", "w_", ",", "\[Kappa]o_", ",", "\[Kappa]_"}], 
+     "]"}], ":=", 
+    RowBox[{"\[Gamma]", "*", "RI"}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"fRSI", "[", 
+     RowBox[{
+     "RS_", ",", "RI_", ",", "RR_", ",", "RSI_", ",", "RSS_", ",", "\[Beta]_",
+       ",", "\[Gamma]_", ",", "w_", ",", "\[Kappa]o_", ",", "\[Kappa]_"}], 
+     "]"}], ":=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"(", 
+        RowBox[{"w", "+", "\[Gamma]", "+", "\[Beta]", "+", 
+         RowBox[{"2", "*", "\[Kappa]o"}], "+", "\[Kappa]"}], ")"}]}], "*", 
+      "RSI"}], " ", "+", " ", 
+     RowBox[{"\[Beta]", "*", "RSI", "*", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"2", "*", "RSS"}], "-", "RSI"}], ")"}], "/", 
+       RowBox[{"(", "RS", ")"}]}]}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"fRSS", "[", 
+     RowBox[{
+     "RS_", ",", "RI_", ",", "RR_", ",", "RSI_", ",", "RSS_", ",", "\[Beta]_",
+       ",", "\[Gamma]_", ",", "w_", ",", "\[Kappa]o_", ",", "\[Kappa]_"}], 
+     "]"}], ":=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "2"}], "*", "\[Beta]", "*", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"RSI", "*", "RSS"}], ")"}], "/", "RS"}]}], " ", "+", " ", 
+     RowBox[{"w", "*", 
+      RowBox[{"(", 
+       RowBox[{"RS", "/", 
+        RowBox[{"(", 
+         RowBox[{"RS", "+", "RR"}], ")"}]}], ")"}], "*", "RSI"}], " ", "-", 
+     RowBox[{"2", "*", "\[Kappa]o", "*", "RSS"}]}]}]}]}]], "Input",
+ CellChangeTimes->{{3.798702053377263*^9, 3.798702257516391*^9}, {
+   3.7987022928033648`*^9, 3.798702361667623*^9}, {3.798702400793758*^9, 
+   3.798702600189839*^9}, {3.798702685434688*^9, 3.798702707432406*^9}, 
+   3.7987027723780117`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"fRS", "[", 
+      RowBox[{
+      "RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS", ",", "\[Beta]", ",",
+        "\[Gamma]", ",", "w", ",", "\[Kappa]o", ",", "\[Kappa]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS"}], "}"}], 
+      "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"fRI", "[", 
+      RowBox[{
+      "RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS", ",", "\[Beta]", ",",
+        "\[Gamma]", ",", "w", ",", "\[Kappa]o", ",", "\[Kappa]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS"}], "}"}], 
+      "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"fRR", "[", 
+      RowBox[{
+      "RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS", ",", "\[Beta]", ",",
+        "\[Gamma]", ",", "w", ",", "\[Kappa]o", ",", "\[Kappa]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS"}], "}"}], 
+      "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"fRSI", "[", 
+      RowBox[{
+      "RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS", ",", "\[Beta]", ",",
+        "\[Gamma]", ",", "w", ",", "\[Kappa]o", ",", "\[Kappa]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS"}], "}"}], 
+      "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"D", "[", 
+    RowBox[{
+     RowBox[{"fRSS", "[", 
+      RowBox[{
+      "RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS", ",", "\[Beta]", ",",
+        "\[Gamma]", ",", "w", ",", "\[Kappa]o", ",", "\[Kappa]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS"}], "}"}], 
+      "}"}]}], "]"}]}], "}"}]], "Input",
+ CellChangeTimes->{{3.798702639219016*^9, 3.798702661815548*^9}, {
+  3.798702738473537*^9, 3.7987027651245003`*^9}, {3.798702795261797*^9, 
+  3.7987028439204283`*^9}, {3.798702900920929*^9, 3.798702902419301*^9}, {
+  3.798703052565298*^9, 3.7987030560382023`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", "\[Kappa]o"}], ",", "0", ",", "0", ",", 
+     RowBox[{"-", "\[Beta]"}], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     RowBox[{
+      RowBox[{"-", "\[Gamma]"}], "-", "\[Kappa]", "-", "\[Kappa]o"}], ",", 
+     "0", ",", "\[Beta]", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "\[Gamma]", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"RSI", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "RSI"}], "+", 
+          RowBox[{"2", " ", "RSS"}]}], ")"}], " ", "\[Beta]"}], 
+       SuperscriptBox["RS", "2"]]}], ",", "0", ",", "0", ",", 
+     RowBox[{
+      RowBox[{"-", "w"}], "-", "\[Beta]", "-", 
+      FractionBox[
+       RowBox[{"RSI", " ", "\[Beta]"}], "RS"], "+", 
+      FractionBox[
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "RSI"}], "+", 
+          RowBox[{"2", " ", "RSS"}]}], ")"}], " ", "\[Beta]"}], "RS"], "-", 
+      "\[Gamma]", "-", "\[Kappa]", "-", 
+      RowBox[{"2", " ", "\[Kappa]o"}]}], ",", 
+     FractionBox[
+      RowBox[{"2", " ", "RSI", " ", "\[Beta]"}], "RS"]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"RS", " ", "RSI", " ", "w"}], 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"RR", "+", "RS"}], ")"}], "2"]]}], "+", 
+      FractionBox[
+       RowBox[{"RSI", " ", "w"}], 
+       RowBox[{"RR", "+", "RS"}]], "+", 
+      FractionBox[
+       RowBox[{"2", " ", "RSI", " ", "RSS", " ", "\[Beta]"}], 
+       SuperscriptBox["RS", "2"]]}], ",", "0", ",", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"RS", " ", "RSI", " ", "w"}], 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"RR", "+", "RS"}], ")"}], "2"]]}], ",", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"RS", " ", "w"}], 
+       RowBox[{"RR", "+", "RS"}]], "-", 
+      FractionBox[
+       RowBox[{"2", " ", "RSS", " ", "\[Beta]"}], "RS"]}], ",", 
+     RowBox[{
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"2", " ", "RSI", " ", "\[Beta]"}], "RS"]}], "-", 
+      RowBox[{"2", " ", "\[Kappa]o"}]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.798702674711831*^9, 3.798702776867016*^9, {3.798702815492757*^9, 
+   3.7987028443422194`*^9}, 3.7987029036201363`*^9, 3.798703056998473*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Jf", "[", 
+   RowBox[{
+   "RS_", ",", "RI_", ",", "RR_", ",", "RSI_", ",", "RSS_", ",", "\[Beta]_", 
+    ",", "\[Gamma]_", ",", "w_", ",", "\[Kappa]o_", ",", "\[Kappa]_"}], "]"}],
+   ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "\[Kappa]o"}], ",", "0", ",", "0", ",", 
+      RowBox[{"-", "\[Beta]"}], ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", 
+      RowBox[{
+       RowBox[{"-", "\[Gamma]"}], "-", "\[Kappa]", "-", "\[Kappa]o"}], ",", 
+      "0", ",", "\[Beta]", ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "\[Gamma]", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"RSI", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "RSI"}], "+", 
+           RowBox[{"2", " ", "RSS"}]}], ")"}], " ", "\[Beta]"}], 
+        SuperscriptBox["RS", "2"]]}], ",", "0", ",", "0", ",", 
+      RowBox[{
+       RowBox[{"-", "w"}], "-", "\[Beta]", "-", 
+       FractionBox[
+        RowBox[{"RSI", " ", "\[Beta]"}], "RS"], "+", 
+       FractionBox[
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "RSI"}], "+", 
+           RowBox[{"2", " ", "RSS"}]}], ")"}], " ", "\[Beta]"}], "RS"], "-", 
+       "\[Gamma]", "-", "\[Kappa]", "-", 
+       RowBox[{"2", " ", "\[Kappa]o"}]}], ",", 
+      FractionBox[
+       RowBox[{"2", " ", "RSI", " ", "\[Beta]"}], "RS"]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox[
+         RowBox[{"RS", " ", "RSI", " ", "w"}], 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{"RR", "+", "RS"}], ")"}], "2"]]}], "+", 
+       FractionBox[
+        RowBox[{"RSI", " ", "w"}], 
+        RowBox[{"RR", "+", "RS"}]], "+", 
+       FractionBox[
+        RowBox[{"2", " ", "RSI", " ", "RSS", " ", "\[Beta]"}], 
+        SuperscriptBox["RS", "2"]]}], ",", "0", ",", 
+      RowBox[{"-", 
+       FractionBox[
+        RowBox[{"RS", " ", "RSI", " ", "w"}], 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"RR", "+", "RS"}], ")"}], "2"]]}], ",", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"RS", " ", "w"}], 
+        RowBox[{"RR", "+", "RS"}]], "-", 
+       FractionBox[
+        RowBox[{"2", " ", "RSS", " ", "\[Beta]"}], "RS"]}], ",", 
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox[
+         RowBox[{"2", " ", "RSI", " ", "\[Beta]"}], "RS"]}], "-", 
+       RowBox[{"2", " ", "\[Kappa]o"}]}]}], "}"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.798702909617231*^9, 3.79870292912416*^9}, {
+  3.798703032557405*^9, 3.7987030672507277`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"RI", "=", "0"}], ",", 
+     RowBox[{"RS", "=", "1"}], ",", 
+     RowBox[{"RR", "=", "0"}], ",", 
+     RowBox[{"RSS", "=", 
+      RowBox[{"\[Mu]", "/", "2"}]}], ",", 
+     RowBox[{"RSI", "=", "0"}]}], "}"}], ",", 
+   RowBox[{"Jf", "[", 
+    RowBox[{
+    "RS", ",", "RI", ",", "RR", ",", "RSI", ",", "RSS", ",", "\[Beta]", ",", 
+     "\[Gamma]", ",", "w", ",", "\[Kappa]o", ",", "\[Kappa]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.798703074301312*^9, 3.798703178980941*^9}, {
+  3.798703286196868*^9, 3.7987032870684967`*^9}, {3.798703355263648*^9, 
+  3.798703368001204*^9}, {3.798703427133642*^9, 3.7987034299587803`*^9}, {
+  3.798703517461246*^9, 3.7987037113669233`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"-", "\[Kappa]o"}], ",", "0", ",", "0", ",", 
+     RowBox[{"-", "\[Beta]"}], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     RowBox[{
+      RowBox[{"-", "\[Gamma]"}], "-", "\[Kappa]", "-", "\[Kappa]o"}], ",", 
+     "0", ",", "\[Beta]", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "\[Gamma]", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", 
+     RowBox[{
+      RowBox[{"-", "w"}], "-", "\[Beta]", "-", "\[Gamma]", "-", "\[Kappa]", 
+      "-", 
+      RowBox[{"2", " ", "\[Kappa]o"}], "+", 
+      RowBox[{"\[Beta]", " ", "\[Mu]"}]}], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", 
+     RowBox[{"w", "-", 
+      RowBox[{"\[Beta]", " ", "\[Mu]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "2"}], " ", "\[Kappa]o"}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.798703430264216*^9, 3.798703681144774*^9, 
+  3.798703712395274*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"JfInf", "[", 
+   RowBox[{
+   "RS_", ",", "RI_", ",", "RR_", ",", "RSI_", ",", "RSS_", ",", "\[Beta]_", 
+    ",", "\[Gamma]_", ",", "w_", ",", "\[Kappa]o_", ",", "\[Kappa]_", ",", 
+    "\[Mu]_"}], "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "\[Kappa]o"}], ",", "0", ",", "0", ",", 
+      RowBox[{"-", "\[Beta]"}], ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", 
+      RowBox[{
+       RowBox[{"-", "\[Gamma]"}], "-", "\[Kappa]", "-", "\[Kappa]o"}], ",", 
+      "0", ",", "\[Beta]", ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "\[Gamma]", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", "0", ",", 
+      RowBox[{
+       RowBox[{"-", "w"}], "-", "\[Beta]", "-", "\[Gamma]", "-", "\[Kappa]", 
+       "-", 
+       RowBox[{"2", " ", "\[Kappa]o"}], "+", 
+       RowBox[{"RS", " ", "\[Beta]", " ", "\[Mu]"}]}], ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", "0", ",", 
+      RowBox[{
+       FractionBox[
+        RowBox[{"RS", " ", "w"}], 
+        RowBox[{"RR", "+", "RS"}]], "-", 
+       RowBox[{"RS", " ", "\[Beta]", " ", "\[Mu]"}]}], ",", 
+      RowBox[{
+       RowBox[{"-", "2"}], " ", "\[Kappa]o"}]}], "}"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.798703376928257*^9, 3.798703389517991*^9}, {
+  3.7987038013115587`*^9, 3.798703802628499*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Jf0", "[", 
+    RowBox[{
+    "RS_", ",", "RI_", ",", "RR_", ",", "RSI_", ",", "RSS_", ",", "\[Beta]_", 
+     ",", "\[Gamma]_", ",", "w_", ",", "\[Kappa]o_", ",", "\[Kappa]_", ",", 
+     "\[Mu]_"}], "]"}], ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "\[Kappa]o"}], ",", "0", ",", "0", ",", 
+       RowBox[{"-", "\[Beta]"}], ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", 
+       RowBox[{
+        RowBox[{"-", "\[Gamma]"}], "-", "\[Kappa]", "-", "\[Kappa]o"}], ",", 
+       "0", ",", "\[Beta]", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "\[Gamma]", ",", "0", ",", "0", ",", "0"}], "}"}], 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", 
+       RowBox[{
+        RowBox[{"-", "w"}], "-", "\[Beta]", "-", "\[Gamma]", "-", "\[Kappa]", 
+        "-", 
+        RowBox[{"2", " ", "\[Kappa]o"}], "+", 
+        RowBox[{"\[Beta]", " ", "\[Mu]"}]}], ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", 
+       RowBox[{"w", "-", 
+        RowBox[{"\[Beta]", " ", "\[Mu]"}]}], ",", 
+       RowBox[{
+        RowBox[{"-", "2"}], " ", "\[Kappa]o"}]}], "}"}]}], "}"}]}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.798703491124298*^9, 3.798703492552926*^9}, {
+  3.798703727519093*^9, 3.798703742304319*^9}, {3.7987038056379633`*^9, 
+  3.798703806677898*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["SIRw_2 (quarantine with return rate delta)", "Subsubsection",
+ CellChangeTimes->{{3.798703907221175*^9, 3.798703939347028*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.798703736255064*^9, 3.798703736776251*^9}}]
+}, Open  ]]
+},
+WindowSize->{1366, 719},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (June 27, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 138, 1, 35, "Subsubsection"],
+Cell[721, 25, 2813, 73, 143, "Input"],
+Cell[CellGroupData[{
+Cell[3559, 102, 2306, 56, 121, "Input"],
+Cell[5868, 160, 2469, 73, 95, "Output"]
+}, Open  ]],
+Cell[8352, 236, 2697, 77, 167, "Input"],
+Cell[CellGroupData[{
+Cell[11074, 317, 776, 19, 32, "Input"],
+Cell[11853, 338, 1052, 29, 32, "Output"]
+}, Open  ]],
+Cell[12920, 370, 1443, 37, 81, InheritFromParent],
+Cell[14366, 409, 1457, 38, 77, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15860, 452, 133, 1, 36, "Subsubsection"],
+Cell[15996, 455, 92, 1, 32, "Input"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

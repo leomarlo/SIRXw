@@ -1,0 +1,24 @@
+tmax=10000;
+Nt=1000;
+
+N=1000;
+mu=5;
+beta=0.001;
+gamma=0.002;
+w=0.0005;
+rho0=0.02;
+kap0=0.000;
+kap=0.0004;
+
+result=SIRXw(N,mu,beta,gamma,w,kap0,kap,rho0,tmax,Nt);
+
+pl(1)=plot(result.times, result.NIs/result.N);pl(1).Color='red';
+hold on;
+pl(2)=plot(result.times, result.NRs/result.N);pl(2).Color='blue';
+pl(3)=plot(result.times, result.NSs/result.N);pl(3).Color='green';
+pl(4)=plot(result.times, result.NXs/result.N);pl(4).Color='black';
+pl(5)=plot(result.times, (result.NSs+result.NIs+result.NRs+result.NXs)/result.N);
+ax=gca;
+ax.YLim=[0,1];
+lgd=legend(pl);
+lgd.Location='northeast';
