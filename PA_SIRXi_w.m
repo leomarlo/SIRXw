@@ -1,7 +1,7 @@
 function f=PA_SIRXi_w(x,beta,gamma,w,kap,delta)
     % x(1) = rhos
-    % x(2) = rhor
-    % x(3) = rhoi
+    % x(2) = rhoi
+    % x(3) = rhor
     % x(4) = rhosi
     % x(5) = rhoss
     
