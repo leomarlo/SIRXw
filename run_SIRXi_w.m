@@ -17,14 +17,23 @@ rhosi= rhoi*mu;
 rhoss= (mu/2)-rho0*mu;
 ini=[rhos,rhoi,rhor,rhosi,rhoss];
 
-Nrange=[100,500,1000,250,2000];
+Nrange=[500,1000,1500];
 wrange=[0:2/10000:1/100];
 kaprange=[0:2/10000:1/100];
-brange=[0:0.0005:0.005];
+brange=[0:0.0002:0.005];
+
+mfaRinf='to';
+mfaImax='be';
+simRinf='cleared';
+simImax='into nothingness';
 
 Sa=20;
 for Ni=1:length(Nrange)
     N=Nrange(Ni)
+    clear('mfaRinf')
+    clear('mfaImax')
+    clear('simRinf')
+    clear('simImax')
     for wi=1:length(wrange)
         w=wrange(wi)
         for ki=1:length(kaprange)
@@ -47,7 +56,7 @@ for Ni=1:length(Nrange)
                 simRinf{wi,ki,bi}=Rinfs;
                 simImax{wi,ki,bi}=Imax;
             end
-            save(strcat('sweepMay23N',num2str(N),'.mat'),'mfaRinf','mfaImax','simRinf','simImax','wrange','kaprange','brange','N','mu','delta','Nt','tmax')
+            save(strcat('sweepMay24N',num2str(N),'.mat'),'mfaRinf','mfaImax','simRinf','simImax','wrange','kaprange','brange','N','mu','delta','Nt','tmax')
         end
     end
 end
