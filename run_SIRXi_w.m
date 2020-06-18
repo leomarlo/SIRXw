@@ -8,7 +8,7 @@ gamma=1/40;
 w=1/100;
 rho0=1/100;
 kap=12/10000;
-delta=1/100;
+delta=2/100;
 % rhos,rhoi,rhor,rhosi,rhoss
 rhoi=0.01;
 rhos=1-rhoi;
@@ -56,7 +56,7 @@ for Ni=1:length(Nrange)
                 simRinf{wi,ki,bi}=Rinfs;
                 simImax{wi,ki,bi}=Imax;
             end
-            save(strcat('sweepMay24N',num2str(N),'.mat'),'mfaRinf','mfaImax','simRinf','simImax','wrange','kaprange','brange','N','mu','delta','Nt','tmax')
+            save(strcat('sweepJun06N',num2str(N),'delta002.mat'),'mfaRinf','mfaImax','simRinf','simImax','wrange','kaprange','brange','N','mu','delta','Nt','tmax')
         end
     end
 end
