@@ -1,5 +1,6 @@
-load('sweepMay24N500.mat')
+% load('sweepMay24N500.mat')
 
+load('sweepJun06N500delta002.mat')
 atindex = 501;
 bs(atindex)
 
@@ -13,13 +14,21 @@ for wi=1:length(wrange)
         rho_est  = ones(1,length(brange));
         weights = ones(1,length(brange));
         rinf_mf = zeros(1,length(brange));
+        breakflag = 0;
         for bi = 1:length(brange)
             X = simRinf{wi,ki,bi};
+            if length(X)==0
+                breakflag = 1
+                break
+            end
             [xmean,xsdev,weight] = corrected(X,0.05,0.05);
             weights(bi) = weight/(xsdev+0.1);
             rho_est(bi) = xmean;
             
             rinf_mf(bi)=mfaRinf{wi,ki,bi};
+        end
+        if breakflag
+            break
         end
         
         
@@ -36,6 +45,8 @@ for wi=1:length(wrange)
     end
 end
 % load('MFvsSIMin2Datrate.mat') %,'atrate_mf','atrate_sm')
+atrate_mf(atrate_mf==0)=nan;
+atrate_sm(atrate_sm==0)=nan;
 
 LegendFontsizes = 12;
 gamma=1/40;
@@ -53,12 +64,18 @@ dk=kaprange(2)-kaprange(1);
 for wi=1:length(wrange)
     w = wrange(wi);
     for ki=1:length(kaprange)
-        val = atrate_mf(wi,ki);
-        scaled = (val-minval)/(maxval-minval);
         kap = kaprange(ki);
         r = rectangle('Position',[w kap dw dk]');
-        r.FaceColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
-        r.EdgeColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+        
+        val = atrate_mf(wi,ki);
+        if isnan(val)
+            r.FaceColor = 'white';
+            r.EdgeColor = 'white';
+        else
+            scaled = (val-minval)/(maxval-minval);
+            r.FaceColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+            r.EdgeColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+        end
         r.LineWidth = 0.0001;
     end
 end
@@ -90,7 +107,7 @@ lgd.FontSize=LegendFontsizes;
 
 resolution=300;
 folder='figures/';
-filename=strcat('MeanField_2d_atrate_date_8Jun');
+filename=strcat('MeanField_2d_delta2_atrate_date_18Jun');
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
 
@@ -104,12 +121,18 @@ dk=kaprange(2)-kaprange(1);
 for wi=1:length(wrange)
     w = wrange(wi);
     for ki=1:length(kaprange)
-        val = atrate_sm(wi,ki);
-        scaled = (val-minval)/(maxval-minval);
         kap = kaprange(ki);
         r = rectangle('Position',[w kap dw dk]');
-        r.FaceColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
-        r.EdgeColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+        
+        val = atrate_sm(wi,ki);
+        if isnan(val)
+            r.FaceColor = 'white';
+            r.EdgeColor = 'white';
+        else
+            scaled = (val-minval)/(maxval-minval);
+            r.FaceColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+            r.EdgeColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+        end
         r.LineWidth = 0.0001;
     end
 end
@@ -139,7 +162,7 @@ lgd.FontSize=LegendFontsizes;
 
 resolution=300;
 folder='figures/';
-filename=strcat('Simulation_2d_atrate_date_8Jun');
+filename=strcat('Simulation_2d_delta2_atrate_date_18Jun');
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)

@@ -1,4 +1,6 @@
-load('sweepMay24N500.mat')
+% load('sweepMay24N500.mat')
+
+load('sweepJun06N500delta002.mat')
 
 trans_thr = 0.05;
 
@@ -75,7 +77,7 @@ cb.TickLabels = minval + [0:0.2:1]*(maxval-minval);
 
 resolution=300;
 folder='figures/';
-filename=strcat('MeanField_2d_date_8Jun');
+filename=strcat('MeanField_2d_002delta_date_18Jun');
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
@@ -114,7 +116,7 @@ cb.TickLabels = minval + [0:0.2:1]*(maxval-minval);
 
 resolution=300;
 folder='figures/';
-filename=strcat('Simulation_2d_date_8Jun');
+filename=strcat('Simulation_2d_002delta_date_18Jun');
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)

@@ -1,5 +1,6 @@
-load('sweepMay24N500.mat')
+% load('sweepMay24N500.mat')
 
+load('sweepJun06N500delta002.mat')
 atindex = 501;
 bs(atindex)
 
@@ -64,11 +65,16 @@ for wi=1:length(wrange)
     w = wrange(wi);
     for ki=1:length(kaprange)
         val = atrate_mf(wi,ki);
-        scaled = (val-minval)/(maxval-minval);
         kap = kaprange(ki);
         r = rectangle('Position',[w kap dw dk]');
-        r.FaceColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
-        r.EdgeColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+        if isnan(val)
+            r.FaceColor = 'white';
+            r.EdgeColor = 'white';
+        else
+            scaled = (val-minval)/(maxval-minval);
+            r.FaceColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+            r.EdgeColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+        end
         r.LineWidth = 0.0001;
     end
 end
@@ -115,11 +121,16 @@ for wi=1:length(wrange)
     w = wrange(wi);
     for ki=1:length(kaprange)
         val = atrate_sm(wi,ki);
-        scaled = (val-minval)/(maxval-minval);
         kap = kaprange(ki);
         r = rectangle('Position',[w kap dw dk]');
-        r.FaceColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
-        r.EdgeColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+        if isnan(val)
+            r.FaceColor = 'white';
+            r.EdgeColor = 'white';
+        else
+            scaled = (val-minval)/(maxval-minval);
+            r.FaceColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+            r.EdgeColor = [1,0,0]*scaled +[0,0.5,1]*(1-scaled);
+        end
         r.LineWidth = 0.0001;
     end
 end
