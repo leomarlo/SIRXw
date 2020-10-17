@@ -2,7 +2,7 @@
 
 load('sweepJun06N500delta002.mat')
 atindex = 501;
-bs(atindex)
+% bs(atindex)
 
 atrate_mf = zeros(length(wrange),length(kaprange));
 atrate_sm = zeros(length(wrange),length(kaprange));
@@ -46,7 +46,8 @@ for wi=1:length(wrange)
 end
 % load('MFvsSIMin2Datrate.mat') %,'atrate_mf','atrate_sm')
 % load('MFvsSIMin2DatrateForImax.mat') %,'atrate_mf','atrate_sm')
-
+atrate_mf(atrate_mf==0)=nan;
+atrate_sm(atrate_sm==0)=nan;
 
 LegendFontsizes = 12;
 gamma=1/40;
@@ -106,7 +107,7 @@ lgd.FontSize=LegendFontsizes;
 
 resolution=300;
 folder='figures/';
-filename=strcat('MeanField_2d_atrate_Imax_date_8Jun');
+filename=strcat('MeanField_2d_atrate_delta2_Imax_date_18Jun');
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
 
@@ -160,7 +161,7 @@ lgd.FontSize=LegendFontsizes;
 
 resolution=300;
 folder='figures/';
-filename=strcat('Simulation_2d_atrate_Imax_date_8Jun');
+filename=strcat('Simulation_2d_atrate_delta2_Imax_date_18Jun');
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)

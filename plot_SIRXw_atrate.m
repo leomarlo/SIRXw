@@ -2,7 +2,6 @@
 
 load('sweepJun06N500delta002.mat')
 atindex = 501;
-bs(atindex)
 
 atrate_mf = zeros(length(wrange),length(kaprange));
 atrate_sm = zeros(length(wrange),length(kaprange));
@@ -107,7 +106,7 @@ lgd.FontSize=LegendFontsizes;
 
 resolution=300;
 folder='figures/';
-filename=strcat('MeanField_2d_delta2_atrate_date_18Jun');
+filename=strcat('MeanField_2d_delta2_atrate_date_10Sept');
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
 
@@ -162,7 +161,7 @@ lgd.FontSize=LegendFontsizes;
 
 resolution=300;
 folder='figures/';
-filename=strcat('Simulation_2d_delta2_atrate_date_18Jun');
+filename=strcat('Simulation_2d_delta2_atrate_date_10Sept');
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)

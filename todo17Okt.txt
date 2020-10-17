@@ -1,0 +1,13 @@
+
+1) overlay a) and b) 
+2) Fontsize consistent everywhere.
+3) Legend Size bigger
+4) Colors: 
+
+5) Schraffieren in Figure 4
+6) Figure 2: only one color bar with text above it
+6) Figure 2: Title bigger and bold
+7) Only one axis label kappa. and ticks only every 0.002, like for w axis
+
+
+8) Figure 1: add case of no quarantine.
