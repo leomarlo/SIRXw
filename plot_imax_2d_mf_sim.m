@@ -1,3 +1,5 @@
+plot_utilities
+
 % 
 % N = 500;
 % SA = 120;
@@ -72,11 +74,13 @@ load('Imax_2D_Aug_withhigherres.mat')
 % atrate_mf(atrate_mf==0)=nan;
 % atrate_sm(atrate_sm==0)=nan;
 
-LegendFontsizes = 12;
+% LegendFontsizes = 12;
 % gamma=1/40;
 % bc = 0.0025;
 wfine=linspace(0.0,0.01,1000);
 kfine=(mu-1)*beta - gamma - wfine;
+
+
 
 minval = 0.000;
 maxval = 0.06;
@@ -113,8 +117,22 @@ ax.YLim=[0,0.01];
 ax.XLim=[0,0.01];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-title('I_{max} at \beta=0.0025 (Mean Field)')
+% title('I_{max} at \beta=0.0025 (Mean Field)')
+ax.XTick = ticks2d;
+ax.YTick = ticks2d;
+ax.TickDir = 'out';
+ax.FontSize = fontsize;
+ax.LineWidth = FrameThickness;
+ax.TickLength=TickLengths;
+ax.FontWeight = FontWeights;
+title({'Mean Field'})
 
+set(ax,'box','off');
+grid on
+daspect([1 1 1])
+
+
+% title('r_{\infty} at \beta=0.0025 (Mean Field)')
 colorMap = [linspace(0,1,256)',linspace(0.5,0,256)',linspace(1,0,256)'];
 colormap(colorMap);
 cb=colorbar;
@@ -122,16 +140,24 @@ cb.LineWidth=0.5;
 cb.Ticks = [0:0.25:1];
 cb.TicksMode ='manual';
 cb.TickLabels = minval + [0:0.25:1]*(maxval-minval);
-
+title(cb, 'I_{max}');
+cb.FontSize = fontsize; 
+cb.LineWidth = FrameThickness;
+cb.FontWeight = FontWeights;
+cb.FontName = 'Times';
+pos=get(ax,'position');  % retrieve the current values
+pos(4)=0.97*pos(4);        % try reducing width 10%
+pos(3)=0.95*pos(3);  
+set(ax,'position',pos);
 lgd=legend(ql);
 lgd.Location='northeast';
 lgd.Box='off';
 lgd.BoxFace.ColorType='truecoloralpha';
-lgd.FontSize=LegendFontsizes;
+lgd.FontSize=LegendFontsize;
 
 resolution=300;
 folder='figures/';
-filename=strcat('Imax_MF_date_01Sep');
+filename=strcat('Imax_2d_MF_',date);
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
 
@@ -166,24 +192,36 @@ ax.YLim=[0,0.01];
 ax.XLim=[0,0.01];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-title('I_{max} at \beta=0.0025 (Simulation)')
-colorMap = [linspace(0,1,256)',linspace(0.5,0,256)',linspace(1,0,256)'];
-colormap(colorMap);
-cb=colorbar;
-cb.LineWidth=0.5;
-cb.Ticks = [0:0.25:1];
-cb.TicksMode ='manual';
-cb.TickLabels = minval + [0:0.25:1]*(maxval-minval);
+% title('I_{max} at \beta=0.0025 (Simulation)')
+ax.XTick = ticks2d;
+ax.YTick = ticks2d;
+ax.TickDir = 'out';
+ax.FontSize = fontsize;
+ax.LineWidth = FrameThickness;
+ax.TickLength=TickLengths;
+ax.FontWeight = FontWeights;
+title({'Simulation'})
+
+set(ax,'box','off');
+grid on
+daspect([1 1 1])
+
+% title('r_{\infty} at \beta=0.0025 (Simulation)')
+
+pos=get(ax,'position');  % retrieve the current values
+pos(4)=0.97*pos(4);        % try reducing width 10%
+pos(3)=0.95*pos(3);  
+set(ax,'position',pos);
 
 lgd=legend(ql);
 lgd.Location='northeast';
 lgd.Box='off';
 lgd.BoxFace.ColorType='truecoloralpha';
-lgd.FontSize=LegendFontsizes;
+lgd.FontSize=LegendFontsize;
 
 resolution=300;
 folder='figures/';
-filename=strcat('Imax_SIM_date_01Sep');
+filename=strcat('Imax_2d_SIM_',date);
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)

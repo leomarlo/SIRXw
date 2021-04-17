@@ -4,7 +4,7 @@ Nt=tmax*2;
 N=100;
 mu=15;
 beta=1/150;
-gamma=1/40;
+gamma=1/40;  % recovery for the original paper
 w=1/100;
 rho0=1/100;
 kap=12/10000;
@@ -17,10 +17,18 @@ rhosi= rhoi*mu;
 rhoss= (mu/2)-rho0*mu;
 ini=[rhos,rhoi,rhor,rhosi,rhoss];
 
-Nrange=[500,1000,1500];
-wrange=[0:2/10000:1/100];
-kaprange=[0:2/10000:1/100];
-brange=[0:0.0002:0.005];
+Nrange=[500,1000,1500]; % range for the original paper
+wrange=[0:2/10000:1/100]; % range for the original paper
+kaprange=[0:2/10000:1/100]; % range for the original paper
+brange=[0:0.0002:0.005]; % range for the original paper
+
+
+Nrange=[500]; % range for the appeal
+
+gamma=1/14;  % recovery for the appeal
+wrange=[0:0.01:0.2]; % range for the appeal
+kaprange=[0:0.01:0.2]; % range for the appeal
+brange=[0:0.004:0.1]; % transmission rate range for the appeal
 
 mfaRinf='to';
 mfaImax='be';
@@ -40,6 +48,7 @@ for Ni=1:length(Nrange)
             kap=kaprange(ki)
             for bi=1:length(brange)
                 beta=brange(bi);
+                beta
                 Imax=zeros(1,Sa);
                 Rinfs=zeros(1,Sa);
                 parfor sa=1:Sa
@@ -56,7 +65,7 @@ for Ni=1:length(Nrange)
                 simRinf{wi,ki,bi}=Rinfs;
                 simImax{wi,ki,bi}=Imax;
             end
-            save(strcat('sweepJun06N',num2str(N),'delta002.mat'),'mfaRinf','mfaImax','simRinf','simImax','wrange','kaprange','brange','N','mu','delta','Nt','tmax')
+            save(strcat('sweepAprl17N',num2str(N),'delta002.mat'),'mfaRinf','mfaImax','simRinf','simImax','wrange','kaprange','brange','N','mu','delta','Nt','tmax')
         end
     end
 end

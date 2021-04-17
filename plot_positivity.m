@@ -1,3 +1,6 @@
+% load plot parameters
+plot_utilities
+
 tmax = 1000;
 gamma = 1/40;
 delta = 1/10;
@@ -103,12 +106,30 @@ end
 
 cols = rand(length(brange),3);
 styles = {':','--','-.'};
-% cols = eye(3);
 cols = [[1,0,0];[0,0,0];[0.5,0.5,0.5];[0,0,1]];
 pl = 1;
 
 figure;
 clear('pl')
+
+fi = 1;
+truecolor_indices = [1,2,4];
+for bi = 1:length(brange)
+    ys = non_poss(:,fi,bi);
+    nans = isnan(ys);
+    ys_non_nan = ys(~nans);
+    xs_non_nan = wrange(~nans);
+    extrapy = extrapolate(xs_non_nan(end-2),xs_non_nan(end-1), ys_non_nan(end-2),ys_non_nan(end-1), 'y');
+    extrapx = extrapolate(xs_non_nan(end-2),xs_non_nan(end-1), ys_non_nan(end-2),ys_non_nan(end-1), 'x');
+    extry = extrapy(wrange(1));
+    extrx = extrapx(0);
+    poly_y = [0,extry,ys_non_nan',0];
+    poly_x = [wrange(1),wrange(1),xs_non_nan,extrx];
+    fill(poly_x,poly_y,cols(truecolor_indices(bi),:),'edgecolor','none','facealpha',.1)
+    hold on;
+end
+
+
 for ei = 1:length(effconn)
     
     for bi = 1:length(brange)
@@ -116,20 +137,20 @@ for ei = 1:length(effconn)
         pl(ei) = plot(wrange,non_poss(:,ei,bi));
         pl(ei).Color = cols(bi,:);
         pl(ei).LineStyle = styles{ei};
-        pl(ei).DisplayName = strcat('positivity @ \rho_{SI}(0) = ',num2str((1+effconn(ei))*mu),'\rho_{S}(0)');
+        pl(ei).DisplayName = strcat('\rho_{SI}(0) =',num2str((1+effconn(ei))*mu),'\rho_{I}(0)');
         pl(ei).LineWidth = 2.5;
         hold on;
         pl(length(effconn)+(length(brange)-bi+1)) = plot(wrange,crit_mfs(:,ei,bi));
         pl(length(effconn)+(length(brange)-bi+1)).Color = cols(bi,:);
-        pl(length(effconn)+(length(brange)-bi+1)).DisplayName = strcat('MF transition @ \beta=',num2str(brange(bi)),'');
+        pl(length(effconn)+(length(brange)-bi+1)).DisplayName = strcat('MF trans. \beta=',num2str(brange(bi)),'');
         pl(length(effconn)+(length(brange)-bi+1)).LineStyle = '-';
-        pl(length(effconn)+(length(brange)-bi+1)).LineWidth = 1.5;
+        pl(length(effconn)+(length(brange)-bi+1)).LineWidth = 2.5;
     end
     
     ppll = plot(wrange,non_poss(:,ei,bi));
     ppll.Color = cols(bi+1,:);
     ppll.LineStyle = styles{ei};
-    ppll.DisplayName = strcat('positivity\rho_{SI}(0) = ',num2str((1+effconn(ei))*mu),'\rho_{S}(0)');
+    ppll.DisplayName = strcat('positivity\rho_{SI}(0) = ',num2str((1+effconn(ei))*mu),'\rho_{I}(0)');
     ppll.LineWidth = 2.5;
 %     qqll = plot(wrange,crit_mfs(:,ei,bi));
 %     qqll.Color = cols(bi+1,:);
@@ -138,22 +159,29 @@ for ei = 1:length(effconn)
 %     qqll.LineWidth = 1.5;
     pl(length(effconn)+(length(brange)-bi+1)) = plot(wrange,crit_mfs(:,ei,bi));
     pl(length(effconn)+(length(brange)-bi+1)).Color = cols(bi+1,:);
-    pl(length(effconn)+(length(brange)-bi+1)).DisplayName = strcat('MF transition @ \beta=',num2str(brange(bi)),'');
+    pl(length(effconn)+(length(brange)-bi+1)).DisplayName = strcat('MF trans. \beta=',num2str(brange(bi)),'');
     pl(length(effconn)+(length(brange)-bi+1)).LineStyle = '-';
-    pl(length(effconn)+(length(brange)-bi+1)).LineWidth = 1.5;
+    pl(length(effconn)+(length(brange)-bi+1)).LineWidth = 2.5;
     ax = gca; 
+    ax.FontSize = fontsize;
     ax.XLim = xlim;
     ax.YLim = ylim;
+    ax.XLabel.String = 'w';
+    ax.YLabel.String = '\kappa';
+    ax.LineWidth = FrameThickness;
+    ax.TickLength=TickLengths;
+    ax.FontWeight = FontWeights;
 end
 
 
 lgd = legend(pl);
 % lgd = legend(pl(1:(length(effconn)+1)));
 lgd.Location = 'northeast';
+lgd.FontSize=LegendFontsize;
 resolution=300;
 
 folder='figures/';
-filename=strcat('positivity_10Sep');
+filename=strcat('positivity_', date);
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)

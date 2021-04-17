@@ -1,3 +1,4 @@
+plot_utilities
 % load('sweepMay24N500.mat')
 
 % load('sweepJun06N500delta002.mat')
@@ -65,7 +66,19 @@ ax.YLim=[0,0.01];
 ax.XLim=[0,0.01];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-title('critical infection rate \beta (Mean Field)')
+ax.FontSize = fontsize;
+ax.LineWidth = FrameThickness;
+ax.TickLength=TickLengths;
+ax.TickDir = 'out';
+ax.FontWeight = FontWeights;
+ax.XTick = ticks2d;
+ax.YTick = ticks2d;
+title({'Mean Field'})
+
+set(ax,'box','off');
+grid on
+daspect([1 1 1])
+
 
 colorMap = [linspace(0,1,256)',linspace(0.5,0,256)',linspace(1,0,256)'];
 colormap(colorMap);
@@ -74,10 +87,19 @@ cb.LineWidth=0.5;
 cb.Ticks = [0:0.2:1];
 cb.TicksMode ='manual';
 cb.TickLabels = minval + [0:0.2:1]*(maxval-minval);
+title(cb, '\beta_c');
+cb.FontSize = fontsize;
+cb.LineWidth = FrameThickness;
+cb.FontWeight = FontWeights;
+pos=get(ax,'position');  % retrieve the current values
+pos(4)=0.97*pos(4);        % try reducing width 10%
+pos(3)=0.95*pos(3);  
+set(ax,'position',pos);
+
 
 resolution=300;
 folder='figures/';
-filename=strcat('MeanField_2d_002delta_date_10Sept');
+filename=strcat('crit_2d_MF_',date);
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
@@ -104,20 +126,64 @@ ax.YLim=[0,0.01];
 ax.XLim=[0,0.01];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-title('critical infection rate \beta (Simulation)')
+ax.XTick = ticks2d;
+ax.YTick = ticks2d;
+ax.TickDir = 'out';
+ax.FontSize = fontsize;
+ax.LineWidth = FrameThickness;
+ax.TickLength=TickLengths;
+ax.FontWeight = FontWeights;
+title({'Simulation'})
 
-colorMap = [linspace(0,1,256)',linspace(0.5,0,256)',linspace(1,0,256)'];
-colormap(colorMap);
-cb=colorbar;
-cb.LineWidth=0.5;
-cb.Ticks = [0:0.2:1];
-cb.TicksMode ='manual';
-cb.TickLabels = minval + [0:0.2:1]*(maxval-minval);
+set(ax,'box','off');
+grid on
+daspect([1 1 1])
+
+pos=get(ax,'position');  % retrieve the current values
+pos(4)=0.97*pos(4);        % try reducing width 10%
+pos(3)=0.95*pos(3);  
+set(ax,'position',pos);
+
+% colorMap = [linspace(0,1,256)',linspace(0.5,0,256)',linspace(1,0,256)'];
+% colormap(colorMap);
+% cb=colorbar;
+% cb.LineWidth=0.5;
+% cb.Ticks = [0:0.2:1];
+% cb.TicksMode ='manual';
+% cb.TickLabels = minval + [0:0.2:1]*(maxval-minval);
 
 resolution=300;
 folder='figures/';
-filename=strcat('Simulation_2d_002delta_date_10Sept');
+filename=strcat('crit_2d_SIM_',date);
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
 
+
+
+figure; 
+ax = axes;
+colorMap = [linspace(0,1,256)',linspace(0.5,0,256)',linspace(1,0,256)'];
+colormap(colorMap);
+cb=colorbar(ax);
+cb.LineWidth=0.5;
+cb.Ticks = [0:0.2:1];
+cb.TicksMode ='manual';
+cb.TickLabels = minval + [0:0.2:1]*(maxval-minval);
+title(cb, '\beta_c');
+ax.FontSize = fontsize;
+ax.LineWidth = FrameThickness;
+ax.TickLength=TickLengths;
+ax.FontWeight = 'bold';
+ax.Visible = 'off';
+pos=get(ax,'position');  % retrieve the current values
+pos(4)=0.97*pos(4);        % try reducing width 10%
+pos(3)=0.95*pos(3);  
+set(gca,'position',pos);
+
+
+folder='figures/';
+filename=strcat('crit_2d_colorbar_',date);
+
+direction=strcat(folder,filename,'.png');
+saveas(gcf,direction)

@@ -1,0 +1,184 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{PSCMV15}
+
+\bibitem[AM91]{AndersonMay}
+R.M. Anderson and R.M. May.
+\newblock {\em Infectious Diseases of Humans: Dynamics and Control}.
+\newblock Oxford University Press, 1991.
+
+\bibitem[BBLS19]{Balletal}
+F.~Ball, T.~Britton, K.Y. Leung, and D.~Sirl.
+\newblock A stochastic {SIR} network epidemic model with preventive dropping of
+  edges.
+\newblock {\em J. Math. Biol.}, 78(6):1875--1951, 2019.
+
+\bibitem[BOM{\etalchar{+}}18]{Brettetal}
+T.S. Brett, E.B. O'Dea, E.~Marty, P.B. Miller, A.W. Park, J.M. Drake, and
+  P.~Rohani.
+\newblock Anticipating epidemic transitions with imperfect data.
+\newblock {\em PLoS Comp. Biol.}, 14(6):e1006204, 2018.
+
+\bibitem[BvdDW08]{BrauervandenDriesscheWu}
+F.~Brauer, P.~van~den Driessche, and J.~Wu.
+\newblock {\em Mathematical Epidemiology}.
+\newblock Springer, 2008.
+
+\bibitem[CBBV06]{ColizzaBarratBarthelemyVespignani}
+V.~Colizza, A.~Barrat, M.~Barth{\'e}lemy, and A.~Vespignani.
+\newblock The role of the airline transportation network in the prediction and
+  predictability of global epidemics.
+\newblock {\em Proc. Natl. Acad. Sci. USA}, 103(7):2015--2020, 2006.
+
+\bibitem[DH00]{DiekmannHeesterbeek}
+O.~Diekmann and J.A.P. Heesterbeek.
+\newblock {\em Mathematical Epidemiology of Infectious Diseases: Model
+  Building, Analysis and Interpretation}.
+\newblock Wiley, 2000.
+
+\bibitem[Dur10]{Durrett}
+R.~Durrett.
+\newblock Some features of the spread of epidemics and information on a random
+  graph.
+\newblock {\em Proc. Natl. Acad.Sci. USA}, 107(10):4491--4498, 2010.
+
+\bibitem[FWK{\etalchar{+}}20]{Ferrettietal}
+L.~Ferretti, C.~Wymant, M.~Kendall, L.~Zhao, A.~Nurtay, L.~Abeler-D{\"o}rner,
+  M.~Parker, D.~Bonsall, and C.~Fraser.
+\newblock Quantifying {SARS-CoV-2} transmission suggests epidemic control with
+  digital contact tracing.
+\newblock {\em Science}, 368:6491, 2020.
+
+\bibitem[GBB{\etalchar{+}}20]{Giordanoetal}
+G.~Giordano, F.~Blanchini, R.~Bruno, P.~Colaneri, A.~Di Filippo, A.~Di Matteo,
+  and M.~Colaneri.
+\newblock Modelling the {COVID-19} epidemic and implementation of
+  population-wide interventions in {Italy}.
+\newblock {\em Nat. Med.}, 26:855--860, 2020.
+
+\bibitem[GDB06]{GrossDLimaBlasius}
+T.~Gross, C.J.~Dommar D'Lima, and B.~Blasius.
+\newblock Epidemic dynamics on an adaptive network.
+\newblock {\em Phys. Rev. Lett.}, 96:(208701), 2006.
+
+\bibitem[GS09]{GrossSayama}
+T.~Gross and H.~Sayama, editors.
+\newblock {\em Adaptive Networks: Theory, Models and Applications}.
+\newblock Springer, 2009.
+
+\bibitem[HK11]{HouseKeeling}
+T.~House and M.J. Keeling.
+\newblock Insights from unifying modern approximations to infections on
+  networks.
+\newblock {\em J. R. Soc. Interface}, 8:67--73, 2011.
+
+\bibitem[HKT18]{HorstmeyerKuehnThurner}
+L.~Horstmeyer, C.~Kuehn, and S.~Thurner.
+\newblock Network topology near criticality in adaptive epidemics.
+\newblock {\em Phys. Rev. E}, 98:042313, 2018.
+
+\bibitem[Kee99]{Keeling}
+M.J. Keeling.
+\newblock The effects of local spatial structure on epidemiological invasions.
+\newblock {\em Proc. R. Soc. London B}, 266(1421):859--867, 1999.
+
+\bibitem[KKC{\etalchar{+}}20]{Kucharskietal}
+A.J. Kucharski, P.~Klepac, A.J. Conlan, S.M. Kissler, M.L. Tang, H.~Fry, J.R.
+  Gog, and W.J. Edmunds.
+\newblock Effectiveness of isolation, testing, contact tracing, and physical
+  distancing on reducing transmission of {SARS-CoV-2} in different settings: a
+  mathematical modelling study.
+\newblock {\em Lancet Infect. Dis.}, 20(10):1151--1160, 2020.
+
+\bibitem[KMS17]{KissMillerSimon}
+I.Z. Kiss, J.~Miller, and P.L. Simon.
+\newblock {\em Mathematics of Epidemics on Networks: From Exact to Approximate
+  Models}.
+\newblock Springer, 2017.
+
+\bibitem[KRB{\etalchar{+}}20]{Kretzschmaretal}
+M.E. Kretzschmar, G.~Rozhnova, M.C.J. Bootsma, M.~van Boven J.H.H.M. van~de
+  Wijgert, and M.J.M. Bonten.
+\newblock Impact of delays on effectiveness of contact tracing strategies for
+  {COVID-19}: a modelling study.
+\newblock {\em Lancet Pub. Health}, 5(8):e452--e459, 2020.
+
+\bibitem[KRM97]{KeelingRandMorris}
+M.J. Keeling, D.A. Rand, and A.J. Morris.
+\newblock Correlation models for childhood epidemics.
+\newblock {\em Proc. R. Soc. B}, 264(1385):1149--1156, 1997.
+
+\bibitem[Kue16]{KuehnMC}
+C.~Kuehn.
+\newblock Moment closure - a brief review.
+\newblock In E.~Sch{\"o}ll, S.~Klapp, and P.~H{\"o}vel, editors, {\em Control
+  of Self-Organizing Nonlinear Systems}, pages 253--271. Springer, 2016.
+
+\bibitem[KZG15]{KuehnZschalerGross}
+C.~Kuehn, G.~Zschaler, and T.~Gross.
+\newblock Early warning signs for saddle-escape transitions in complex
+  networks.
+\newblock {\em Scientific Reports}, 5:13190, 2015.
+
+\bibitem[MB20]{MaierBrockmann}
+B.F. Maier and D.~Brockmann.
+\newblock Effective containment explains subexponential growth in recent
+  confirmed {COVID-19} cases in {China}.
+\newblock {\em Science}, 368(6492):742--746, 2020.
+
+\bibitem[Nor06]{Norris}
+J.R. Norris.
+\newblock {\em Markov Chains}.
+\newblock Cambridge University Press, 2006.
+
+\bibitem[OD13]{OReganDrake}
+S.M. O'Regan and J.M. Drake.
+\newblock Theory of early warning signals of disease emergence and leading
+  indicators of elimination.
+\newblock {\em Theor. Ecol.}, 6(3):333--357, 2013.
+
+\bibitem[PKG{\etalchar{+}}20]{Peaketal}
+C.M. Peak, R.~Kahn, Y.H. Grad, L.M. Childs, R.L. Li, M.~Lipsitch, and C.O.
+  Buckee.
+\newblock Individual quarantine versus active monitoring of contacts for the
+  mitigation of {COVID-19}: a modelling study.
+\newblock {\em Lancet Inf. Dis.}, 20(9):1025--1033, 2020.
+
+\bibitem[PSCMV15]{Pastor-Satorrasetal}
+R.~Pastor-Satorras, C.~Castellano, P.~Van Mieghem, and A.~Vespignani.
+\newblock Epidemic processes in complex networks.
+\newblock {\em Rev. Mod. Phys.}, 87(3):925, 2015.
+
+\bibitem[PSV01]{Pastor-SatorrasVespignani}
+R.~Pastor-Satorras and A.~Vespignani.
+\newblock Epidemic spreading in scale-free networks.
+\newblock {\em Phys. Rev. Lett.}, 86(14):3200--3203, 2001.
+
+\bibitem[RGZ09]{Risau-GusmanZanette}
+S.~Risau-Gusman and D.H. Zanette.
+\newblock Contact switching as a control strategy for epidemic outbreaks.
+\newblock {\em J. Theor. Biol.}, 257:52--60, 2009.
+
+\bibitem[SS08]{ShawSchwartz}
+L.B. Shaw and I.B. Schwartz.
+\newblock Fluctuating epidemics on adaptive networks.
+\newblock {\em Phys. Rev. E}, 77:(066101), 2008.
+
+\bibitem[TKH20]{ThurnerKlimekHanel}
+S.~Thurner, P.~Klimek, and R.~Hanel.
+\newblock A network-based explanation of why most {COVID-19} infection curves
+  are linear.
+\newblock {\em Proc. Natl. Acad. Sci. USA}, 117(37):22684--22689, 2020.
+
+\bibitem[TW13]{TuncShkarayev}
+Z.~Tufekci and C.~Wilson.
+\newblock Epidemics in adaptive social networks with temporary link
+  deactivation.
+\newblock {\em J. Stat. Phys.}, 151(1):355--366, 2013.
+
+\bibitem[WK16]{WidderKuehn}
+A.~Widder and C.~Kuehn.
+\newblock Heterogeneous population dynamics and scaling laws near epidemic
+  outbreaks.
+\newblock {\em Math. Biosci. Eng.}, 13(5):1093--1118, 2016.
+
+\end{thebibliography}

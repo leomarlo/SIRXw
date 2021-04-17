@@ -28,4 +28,4 @@ plot_positivity
 % plot imax examples
 disp('plot imax examples')
 clear('all')
-plot_Imax_examples
+% plot_sample_paths
