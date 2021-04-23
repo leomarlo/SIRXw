@@ -29,6 +29,7 @@ gamma=1/14;  % recovery for the appeal
 wrange=[0:0.01:0.2]; % range for the appeal
 kaprange=[0:0.01:0.2]; % range for the appeal
 brange=[0:0.004:0.1]; % transmission rate range for the appeal
+new_first_wi = 7;
 
 mfaRinf='to';
 mfaImax='be';
@@ -42,13 +43,12 @@ for Ni=1:length(Nrange)
     clear('mfaImax')
     clear('simRinf')
     clear('simImax')
-    for wi=1:length(wrange)
+    for wi=new_first_wi:length(wrange)
         w=wrange(wi)
         for ki=1:length(kaprange)
             kap=kaprange(ki)
             for bi=1:length(brange)
                 beta=brange(bi);
-                beta
                 Imax=zeros(1,Sa);
                 Rinfs=zeros(1,Sa);
                 parfor sa=1:Sa
@@ -65,7 +65,7 @@ for Ni=1:length(Nrange)
                 simRinf{wi,ki,bi}=Rinfs;
                 simImax{wi,ki,bi}=Imax;
             end
-            save(strcat('sweepAprl17N',num2str(N),'delta002.mat'),'mfaRinf','mfaImax','simRinf','simImax','wrange','kaprange','brange','N','mu','delta','Nt','tmax')
+            save(strcat('sweepAprl19N',num2str(N),'delta002.mat'),'mfaRinf','mfaImax','simRinf','simImax','wrange','kaprange','brange','N','mu','delta','Nt','tmax')
         end
     end
 end

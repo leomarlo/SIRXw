@@ -2,7 +2,8 @@ plot_utilities
 
 % load('sweepMay24N500.mat')
 
-load('sweepJun06N500delta002.mat')
+% load('sweepJun06N500delta002.mat')
+load('sweepAprl17N500delta002.mat')
 atindex = 501;
 
 atrate_mf = zeros(length(wrange),length(kaprange));
@@ -17,7 +18,11 @@ for wi=1:length(wrange)
         rinf_mf = zeros(1,length(brange));
         breakflag = 0;
         for bi = 1:length(brange)
-            X = simRinf{wi,ki,bi};
+            try
+                X = simRinf{wi,ki,bi};
+            catch
+                breakflag = 1
+            end
             if length(X)==0
                 breakflag = 1
                 break
@@ -43,6 +48,9 @@ for wi=1:length(wrange)
         mf_interp = interp1q(brange',rinf_mf',bs'); 
         atrate_mf(wi,ki) = mf_interp(atindex);
         
+    end
+    if breakflag
+        break
     end
 end
 % load('MFvsSIMin2Datrate.mat') %,'atrate_mf','atrate_sm')
