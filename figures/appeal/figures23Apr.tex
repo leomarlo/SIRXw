@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[normalem]{ulem}
+\usepackage[permil]{overpic}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{color}
+\usepackage[normalem]{ulem}
+% \usepackage{subcaption} 
+\usepackage{hyperref}
+%opening
+\title{}
+\author{}
+
+\begin{document}
+
+% \section{}
+
+\begin{figure}
+    \centering
+    \begin{overpic}[width=0.495\linewidth]{crit_2d_SIM_23Apr.png}%
+    \put(0,700){a)}%
+    \end{overpic}
+    \begin{overpic}[width=0.495\linewidth]{crit_2d_MF_23Apr.png}%
+    \put(0,700){b)}%
+    \end{overpic}
+    \caption{We depict the rate $\beta$ at which the epidemics surpasses a threshold of $r_\infty=0.05$, which we take as an indication for the critical point $\beta_c$. We compare the simulations (left) with the mean field analysis (right). The paramters are $N=500, \mu=15, \gamma=1/14, \delta=1/10$ and $ I(0)=5$.}
+    \label{fig:2}
+\end{figure}
+\thispagestyle{empty} 
+\begin{figure}
+    \centering
+    \begin{overpic}[width=0.495\linewidth]{atrate_2d_SIM_23Apr.png}%
+    \put(0,700){a)}%
+    \end{overpic}
+    \begin{overpic}[width=0.495\linewidth]{atrate_2d_MF_23Apr.png}%
+    \put(0,700){b)}%
+    \end{overpic}
+    \caption{We depict the final fraction of recovered individuals $r_\infty$ at an infection rate of $\beta=0.02$. We compare the simulations (left) with the mean field analysis (right) and indicate the critical curve. Again $N=500, \mu=15, \gamma=1/40, \delta=1/10$ and $ I(0)=5$.}
+    \label{fig:3}
+\end{figure}
+
+\thispagestyle{empty} 
+\begin{figure}
+    \centering
+    \begin{overpic}[width=0.48\linewidth]{atrate_2d_Imaximal_SIM_23Apr.png}%
+    \put(0,700){a)}%
+    \end{overpic}
+    \begin{overpic}[width=0.48\linewidth]{atrate_2d_Imaximal_MF_23Apr.png}%
+    \put(0,700){b)}%
+    \end{overpic}
+    \caption{We depict the maximal fraction of infected individuals $\widehat{[I]}/N$ at an infection rate of $\beta=0.02$. We compare the simulations (left) with the mean field analysis (right) and indicate the critical curve, as calculated from \eqref{eq:critcurve}. We see here a strong difference. This can be explained by the fact that the simulations are random processes. The average of sample path maxima over many sample paths is not the same as the maximum of the average of sample paths. The former overestimates the expectation value of $\rho_I$. Again $N=500, \mu=15, \gamma=1/14, \delta=1/10$ and $ I(0)=5$.}
+    \label{fig:4}
+\end{figure}
+\thispagestyle{empty} 
+\end{document}

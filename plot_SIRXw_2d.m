@@ -2,7 +2,9 @@ plot_utilities
 % load('sweepMay24N500.mat')
 
 % load('sweepJun06N500delta002.mat')
-load('sweepMay24N500.mat')
+% load('sweepMay24N500.mat')
+%% The small sweep from April
+load('joinedsweep23AprN500delta002.mat')
 trans_thr = 0.05;
 
 crit_mf = zeros(length(wrange),length(kaprange));
@@ -41,9 +43,14 @@ end
 % load('MFvsSIMin2D.mat') %'crit_mf','crit_sm')
 
 
-
+% for the original paper
 minval = 0.0008;
 maxval = 0.0033;
+%% for the appeal
+
+minval = round(max(0,min(min(crit_mf(:)), min(crit_sm(:))) * ( 1 - 0.05)),2);
+maxval = round(min(1,max(max(crit_mf(:)), max(crit_sm(:))) * ( 1 + 0.05)),2);
+
 figure; 
 plot(wrange,zeros(1,length(wrange)));
 hold on;
@@ -62,17 +69,17 @@ for wi=1:length(wrange)
     end
 end
 ax=gca;
-ax.YLim=[0,0.01];
-ax.XLim=[0,0.01];
+ax.YLim=[0,max(kaprange)];
+ax.XLim=[0,max(wrange)];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
+ax.XTick = ticks2d.*20;
+ax.YTick = ticks2d.*20;
 ax.FontSize = fontsize;
 ax.LineWidth = FrameThickness;
 ax.TickLength=TickLengths;
 ax.TickDir = 'out';
 ax.FontWeight = FontWeights;
-ax.XTick = ticks2d;
-ax.YTick = ticks2d;
 title({'Mean Field'})
 
 set(ax,'box','off');
@@ -122,12 +129,12 @@ for wi=1:length(wrange)
     end
 end
 ax=gca;
-ax.YLim=[0,0.01];
-ax.XLim=[0,0.01];
+ax.YLim=[0,max(kaprange)];
+ax.XLim=[0,max(wrange)];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-ax.XTick = ticks2d;
-ax.YTick = ticks2d;
+ax.XTick = ticks2d.*20;
+ax.YTick = ticks2d.*20;
 ax.TickDir = 'out';
 ax.FontSize = fontsize;
 ax.LineWidth = FrameThickness;

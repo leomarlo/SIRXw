@@ -1,8 +1,15 @@
+plot_utilities
+
 % load('sweepMay24N500.mat')
 
-load('sweepJun06N500delta002.mat')
+%% The big sweep from June
+% load('sweepJun06N500delta002.mat')
+%% The small sweep from April
+load('joinedsweep23AprN500delta002.mat')
+
 atindex = 501;
-% bs(atindex)
+%% for appeal
+atindex = 201;
 
 atrate_mf = zeros(length(wrange),length(kaprange));
 atrate_sm = zeros(length(wrange),length(kaprange));
@@ -55,8 +62,22 @@ bc = 0.0025;
 wfine=linspace(0.0,0.01,1000);
 kapfine=(mu-1)*bc - gamma - wfine;
 
+% for appeal parameters:
+
+%% for the appeal we have
+gamma=1/14; 
+wfine=linspace(0.0,0.2,1000);
+bc = 0.02;
+kapfine=(mu-1)*bc - gamma - wfine;
+
+
 minval = 0.000;
 maxval = 0.1;
+% minval = 0.000;
+minval = round(max(0,min(min(atrate_mf(:)), min(atrate_sm(:))) * ( 1 - 0.05)),2);
+maxval = round(min(1,max(max(atrate_mf(:)), max(atrate_sm(:))) * ( 1 + 0.05)),2);
+
+
 figure; 
 plot(wrange,zeros(1,length(wrange)));
 hold on;
@@ -85,12 +106,25 @@ ql.LineWidth=3;
 ql.Color='black';
 ql.DisplayName = 'critical curve (MF)';
 ax=gca;
-ax.YLim=[0,0.01];
-ax.XLim=[0,0.01];
+ax.YLim=[0,max(kaprange)];
+ax.XLim=[0,max(wrange)];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-title('i_{max} at \beta=0.0025 (Mean Field)')
+ax.XTick = ticks2d.*20;
+ax.YTick = ticks2d.*20;
+ax.TickDir = 'out';
+ax.FontSize = fontsize;
+ax.LineWidth = FrameThickness;
+ax.TickLength=TickLengths;
+ax.FontWeight = FontWeights;
+title({'Mean Field'})
 
+set(ax,'box','off');
+grid on
+daspect([1 1 1])
+
+
+% title('r_{\infty} at \beta=0.0025 (Mean Field)')
 colorMap = [linspace(0,1,256)',linspace(0.5,0,256)',linspace(1,0,256)'];
 colormap(colorMap);
 cb=colorbar;
@@ -98,16 +132,25 @@ cb.LineWidth=0.5;
 cb.Ticks = [0:0.25:1];
 cb.TicksMode ='manual';
 cb.TickLabels = minval + [0:0.25:1]*(maxval-minval);
+title(cb, 'r_\infty');
+cb.FontSize = fontsize; 
+cb.LineWidth = FrameThickness;
+cb.FontWeight = FontWeights;
+pos=get(ax,'position');  % retrieve the current values
+pos(4)=0.97*pos(4);        % try reducing width 10%
+pos(3)=0.95*pos(3);  
+set(ax,'position',pos);
 
 lgd=legend(ql);
 lgd.Location='northeast';
 lgd.Box='off';
 lgd.BoxFace.ColorType='truecoloralpha';
-lgd.FontSize=LegendFontsizes;
+lgd.FontSize=LegendFontsize;
 
 resolution=300;
 folder='figures/';
-filename=strcat('MeanField_2d_atrate_delta2_Imax_date_18Jun');
+% filename=strcat('MeanField_2d_atrate_delta2_Imax_date_18Jun');
+filename=strcat('atrate_2d_Imaximal_MF_',date);
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
 
@@ -140,28 +183,41 @@ ql.LineWidth=3;
 ql.Color='black';
 ql.DisplayName = 'critical curve (MF)';
 ax=gca;
-ax.YLim=[0,0.01];
-ax.XLim=[0,0.01];
+ax.YLim=[0,max(kaprange)];
+ax.XLim=[0,max(wrange)];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-title('i_{max} at \beta=0.0025 (Simulation)')
-colorMap = [linspace(0,1,256)',linspace(0.5,0,256)',linspace(1,0,256)'];
-colormap(colorMap);
-cb=colorbar;
-cb.LineWidth=0.5;
-cb.Ticks = [0:0.25:1];
-cb.TicksMode ='manual';
-cb.TickLabels = minval + [0:0.25:1]*(maxval-minval);
+ax.XTick = ticks2d.*20;
+ax.YTick = ticks2d.*20;
+ax.TickDir = 'out';
+ax.FontSize = fontsize;
+ax.LineWidth = FrameThickness;
+ax.TickLength=TickLengths;
+ax.FontWeight = FontWeights;
+title({'Simulation'})
+
+set(ax,'box','off');
+grid on
+daspect([1 1 1])
+
+% title('r_{\infty} at \beta=0.0025 (Simulation)')
+
+pos=get(ax,'position');  % retrieve the current values
+pos(4)=0.97*pos(4);        % try reducing width 10%
+pos(3)=0.95*pos(3);  
+set(ax,'position',pos);
 
 lgd=legend(ql);
 lgd.Location='northeast';
 lgd.Box='off';
 lgd.BoxFace.ColorType='truecoloralpha';
-lgd.FontSize=LegendFontsizes;
+lgd.FontSize=LegendFontsize;
 
 resolution=300;
 folder='figures/';
-filename=strcat('Simulation_2d_atrate_delta2_Imax_date_18Jun');
+% filename=strcat('Simulation_2d_atrate_delta2_Imax_date_18Jun');
+
+filename=strcat('atrate_2d_Imaximal_SIM_',date);
 
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)

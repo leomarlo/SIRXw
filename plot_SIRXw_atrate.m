@@ -2,9 +2,13 @@ plot_utilities
 
 % load('sweepMay24N500.mat')
 
+%% The big sweep from June
 % load('sweepJun06N500delta002.mat')
-load('sweepAprl17N500delta002.mat')
+%% The small sweep from April
+load('joinedsweep23AprN500delta002.mat')
 atindex = 501;
+% new atindex for appeal
+atindex = 201;
 
 atrate_mf = zeros(length(wrange),length(kaprange));
 atrate_sm = zeros(length(wrange),length(kaprange));
@@ -63,10 +67,16 @@ bc = 0.0025;
 wfine=linspace(0.0,0.01,1000);
 kapfine=(mu-1)*bc - gamma - wfine;
 
+%% for the appeal we have
+gamma=1/14; 
+wfine=linspace(0.0,0.2,1000);
+bc = 0.02;
+kapfine=(mu-1)*bc - gamma - wfine;
 
+% minval = 0.000;
+minval = round(max(0,min(min(atrate_mf(:)), min(atrate_sm(:))) * ( 1 - 0.05)),2);
+maxval = round(min(1,max(max(atrate_mf(:)), max(atrate_sm(:))) * ( 1 + 0.05)),2);
 
-minval = 0.000;
-maxval = 0.6;
 figure; 
 plot(wrange,zeros(1,length(wrange)));
 hold on;
@@ -96,12 +106,12 @@ ql.LineWidth=3;
 ql.Color='black';
 ql.DisplayName = 'critical curve (MF)';
 ax=gca;
-ax.YLim=[0,0.01];
-ax.XLim=[0,0.01];
+ax.YLim=[0,max(kaprange)];
+ax.XLim=[0,max(wrange)];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-ax.XTick = ticks2d;
-ax.YTick = ticks2d;
+ax.XTick = ticks2d.*20;
+ax.YTick = ticks2d.*20;
 ax.TickDir = 'out';
 ax.FontSize = fontsize;
 ax.LineWidth = FrameThickness;
@@ -173,12 +183,12 @@ ql.LineWidth=3;
 ql.Color='black';
 ql.DisplayName = 'critical curve (MF)';
 ax=gca;
-ax.YLim=[0,0.01];
-ax.XLim=[0,0.01];
+ax.YLim=[0,max(kaprange)];
+ax.XLim=[0,max(wrange)];
 ax.XLabel.String='w';
 ax.YLabel.String='\kappa';
-ax.XTick = ticks2d;
-ax.YTick = ticks2d;
+ax.XTick = ticks2d.*20;
+ax.YTick = ticks2d.*20;
 ax.TickDir = 'out';
 ax.FontSize = fontsize;
 ax.LineWidth = FrameThickness;
@@ -206,6 +216,5 @@ lgd.FontSize=LegendFontsize;
 resolution=300;
 folder='figures/';
 filename=strcat('atrate_2d_SIM_',date);
-
 direction=strcat(folder,filename,'.png');
 saveas(gcf,direction)
