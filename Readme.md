@@ -1,6 +1,6 @@
 ## Codebase for the adaptive SIRX model
 
-Please find in this repository the code for the adaptive SIRX model. 
+Please find in this repository the code for the adaptive SIRX model in the Model folder: 
 
 - *PA.m* contains the pair approximation.
 - *SIRW.m* contains the definition of the model.
