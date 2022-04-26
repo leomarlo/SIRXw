@@ -9,3 +9,5 @@ Please find in this repository the code for the adaptive SIRX model.
 Then there are some helper functions
 
 - *InitState.m* initializes the state of the network.
+
+The research paper with the results can be found here [https://arxiv.org/abs/2010.10516](https://arxiv.org/abs/2010.10516).
